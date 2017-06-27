@@ -2,9 +2,10 @@
 """
 This is 3ndG4me and Myntal's automated scoring code for the Propane game.
 
-Right now this is literally a rip-off of NetKotH written by Irongeek, so praise be to Irongeek.
+Right now this is literally a rip-off of NetKotH (you'll notice we've even kept a lot of the same comment verbiage for now)
+NetKoTH was written by Irongeek, so nothing we plan to do would be possible without Irongeek, so praise be to Irongeek.
 
-CURRENTLY PROPANE IS very much a WIP. It will work the same as NetKotH at base level, but we plan
+Currently PROPANE is very much a WIP. It will work the same as NetKotH at base level, but we plan
 to give it a face lift, and add some new functionality.
 
 We <3 NetKotH
