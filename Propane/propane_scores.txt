@@ -1,0 +1,12 @@
+[TotalScores]
+
+[xpScores]
+
+[metasploitableScores]
+
+[weakwinScores]
+
+[lampywampyScores]
+
+[win98Scores]
+
