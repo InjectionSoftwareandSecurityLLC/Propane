@@ -79,7 +79,7 @@ def score():
         scoresfile = scores.read("propane_scores.txt")
         for server in serverstocheck:
             try:
-                print bcolors.GREEN + bcolors.BOLD + "Checking Server: " + bcolors.ENDC + bcolors.BOLD + server[0] + bcolors.ENDC + " @ " + bcolors.BOLD + server[1] + bcolors.ENDC
+                print bcolors.GREEN + bcolors.BOLD + "Checking Server: " + bcolors.RED + server[0] + bcolors.ENDC + " @ " + bcolors.BOLD + server[1] + bcolors.ENDC
                 url = urllib2.urlopen(server[1],None,10)
                 #url = urllib2.urlopen(server[1])
                 html = url.read()
@@ -97,7 +97,7 @@ def score():
             except IOError:
                 print bcolors.FAIL + bcolors.BOLD + server[0] + bcolors.ENDC + " @ " + bcolors.FAIL + bcolors.BOLD + server[1] + bcolors.ENDC + " might be down, skipping it"
             except AttributeError:
-                print bccolors.BLUE + bcolors.BOLD + server[0] + bcolors.ENDC + " might not be pwned yet"
+                print bcolors.BOLD + "Server " + bcolors.RED + server[0] + bcolors.ENDC + " might not be " + bcolors.RED + "pwned " + bcolors.ENDC + "yet"
         with open("propane_scores.txt", 'wb') as scoresfile:
                 scores.write(scoresfile)
 
