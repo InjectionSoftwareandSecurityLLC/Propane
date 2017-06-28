@@ -1,4 +1,6 @@
 [TotalScores]
+3ndg4me = 49
+myntal = 20
 
 [xpScores]
 
@@ -9,4 +11,12 @@
 [lampywampyScores]
 
 [win98Scores]
+
+[linuxScores]
+3ndg4me = 31
+myntal = 18
+
+[dummyScores]
+myntal = 2
+3ndg4me = 18
 

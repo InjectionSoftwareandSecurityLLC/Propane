@@ -103,9 +103,8 @@ def maketables(server):
             tableresults = tableresults + "<table class=\"table\" border=\"2\">\n<tr>"
             tableresults = tableresults + "<td colspan=\"2\"><center><h3>" +(server[0]).title() + "</h3><br>"
             if((server[0]).title() != "Total"):
-                    tableresults = tableresults + "<h4>Server: <a href=\"" + server[1] + "\">" + server[1]  +"</a></h4>"
-            tableresults = tableresults + "</center></td>"
-            tableresults = tableresults + "</tr>\n"
+                    tableresults = tableresults + "<hr style=\"border-top: 1px solid #000;\"/><h4>Server: <a href=\"" + server[1] + "\">" + server[1]  +"</a></h4>"
+            tableresults = tableresults + "</center></td></tr>\n"
             serverscores.sort(key=lambda score: -int(score[1]))
             toptagstart="<div class=\"topscore\">"
             toptagend="</div>"
