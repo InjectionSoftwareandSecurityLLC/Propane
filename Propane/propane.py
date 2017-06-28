@@ -99,10 +99,11 @@ def maketables(server):
         try:
             serverscoressection = server[0]+"Scores"
             serverscores = scores.items(serverscoressection)
-            tableresults = "<div id=\"" + server[0] + "\">"
-            tableresults = tableresults + "<table border=\"2\">\n<tr>"
-            tableresults = tableresults + "<td colspan=\"2\"><center><b class=\"scoretabletitle\">" +(server[0]).title() + "</b><br>"
-            tableresults = tableresults + "<a href=\"" + server[1] + "\">" + server[1]  +"</a>"
+            tableresults = "<div class=\"table-responsive\" id=\"" + server[0] + "\">"
+            tableresults = tableresults + "<table class=\"table\" border=\"2\">\n<tr>"
+            tableresults = tableresults + "<td colspan=\"2\"><center><h3>" +(server[0]).title() + "</h3><br>"
+            if((server[0]).title() != "Total"):
+                    tableresults = tableresults + "<h4>Server: <a href=\"" + server[1] + "\">" + server[1]  +"</a></h4>"
             tableresults = tableresults + "</center></td>"
             tableresults = tableresults + "</tr>\n"
             serverscores.sort(key=lambda score: -int(score[1]))
