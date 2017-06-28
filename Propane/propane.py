@@ -39,6 +39,23 @@ import time
 from distutils.dir_util import copy_tree
 import os
 
+
+# Colors for terminal output
+class bcolors:
+    BLUE = '\033[94m'
+    GREEN = '\033[92m'
+    RED = '\033[31m'
+    YELLOW = '\033[93m'
+    FAIL = '\033[91m'
+    ENDC = '\033[0m'
+    BOLD = '\033[1m'
+    BGRED = '\033[41m'
+    WHITE = '\033[37m'
+    CYAN = '\033[36m'
+
+
+
+
 #------Make some globals
 config = ConfigParser.RawConfigParser()
 scores = ConfigParser.RawConfigParser()
@@ -49,8 +66,8 @@ outfile = ""
 outdir = ""
 gameSetup = True
 
-def getsettings():
-        print "Grabbing settings"
+def loadConfig():
+        print bcolors.CYAN + bcolors.BOLD + "Loading Configurations" + bcolors.ENDC
         global configfile, serverstocheck, sleeptime, outfile, outdir
         configfile = config.read("propane_config.ini")
         serverstocheck = config.items("Servers To Check")
@@ -58,16 +75,16 @@ def getsettings():
         outfile = config.get("General", "outfile")
         outdir = config.get("General", "outdir")
 
-def checkpagesandscore():
+def score():
         scoresfile = scores.read("propane_scores.txt")
         for server in serverstocheck:
             try:
-                print "About to check server " + server[0] + " " + server[1]
+                print bcolors.GREEN + bcolors.BOLD + "Checking Server: " + bcolors.ENDC + bcolors.BOLD + server[0] + bcolors.ENDC + " @ " + bcolors.BOLD + server[1] + bcolors.ENDC
                 url = urllib2.urlopen(server[1],None,10)
                 #url = urllib2.urlopen(server[1])
                 html = url.read()
                 team = re.search('<team>(.*)</team>', html, re.IGNORECASE).group(1).strip().replace("=","").replace("<","").replace(">","")
-                print "Server " + server[0] + " owned by " + team
+                print bcolors.BOLD + "Server " + server[0] + bcolors.ENDC + " pwned by " + bcolors.RED + team + bcolors.ENDC
                 serverscoressection = server[0]+"Scores"
                 if not scores.has_option("TotalScores", team):
                     scores.set("TotalScores", team, 0)
@@ -78,13 +95,13 @@ def checkpagesandscore():
                 currentscore = scores.getint( serverscoressection,team)
                 scores.set( serverscoressection, team, currentscore+1)
             except IOError:
-                print server[0] + " " + server[1] + " may be down, skipping it"
+                print bcolors.FAIL + bcolors.BOLD + server[0] + bcolors.ENDC + " @ " + bcolors.FAIL + bcolors.BOLD + server[1] + bcolors.ENDC + " might be down, skipping it"
             except AttributeError:
-                print server[0] + " may not be owned yet"
+                print bccolors.BLUE + bcolors.BOLD + server[0] + bcolors.ENDC + " might not be pwned yet"
         with open("propane_scores.txt", 'wb') as scoresfile:
                 scores.write(scoresfile)
 
-def makescoresections():
+def initScoreFile():
         scoresfile = scores.read("propane_scores.txt")
         if not scores.has_section("TotalScores"):
                 scores.add_section("TotalScores")
@@ -94,8 +111,8 @@ def makescoresections():
                 if not scores.has_section(serverscoressection):
                         scores.add_section(serverscoressection)
 
-def maketables(server):
-        print "Making score table for " + server[0]
+def reloadScoreBoard(server):
+        print bcolors.BLUE + bcolors.BOLD + "Reloading Scoreboard for: " + bcolors.ENDC + bcolors.BOLD + server[0] + bcolors.ENDC
         try:
             serverscoressection = server[0]+"Scores"
             serverscores = scores.items(serverscoressection)
@@ -115,39 +132,46 @@ def maketables(server):
             tableresults = tableresults + "</table></div>"
             return tableresults
         except:
-            print "No section for " + server[0]
+            print bcolors.FAIL + bcolors.BOLD + "No section for " + server[0] + " (check your template for errors)" + bcolors.ENDC
 #------Main begin
+def main():
 
-while 1:
-        #------Check files that may have changed since las loop
-        getsettings() #-------Grab core config values, you have the option to edit config file as the game runs
-        makescoresections() #In case score setions for a bax are not there
-        templatefilehandle = open("template/template.html", 'r')
-        scorepagestring=templatefilehandle.read()
-        #------Look at all the pages to see who owns them.
-        checkpagesandscore()
+        global gameSetup
 
-        if(gameSetup):
-                copy_tree("template", outdir)
-                os.remove(outdir + "template.html")
-                gameSetup = False
+        while True:
+                #------Check files that may have changed since las loop
+                loadConfig() #-------Grab core config values, you have the option to edit config file as the game runs
+                initScoreFile() #In case score setions for a bax are not there
+                templatefilehandle = open("template/template.html", 'r')
+                scorepagestring=templatefilehandle.read()
+                #------Look at all the pages to see who owns them.
+                score()
 
-        #------Make Tables
-        for server in serverstocheck:
-            thistable = maketables(server)
-            serverlabeltag=("<" + server[0] + ">").upper()
-            print "Searching for " + serverlabeltag + " tag to replace in template.html (case sensitive)"
-            scorepagestring = scorepagestring.replace(serverlabeltag,thistable)
-        #------Make Total Table
-        thistable = maketables(["Total",""])
-        serverlabeltag=("<TOTAL>").upper()
-        print "Searching for " + serverlabeltag + " to replace (case sensitive)"
-        scorepagestring = scorepagestring.replace(serverlabeltag,thistable)
-        #------Making the score page
-        print "Writing " + outfile
-        outfilehandle = open(outfile, 'w')
-        outfilehandle.write(scorepagestring)
-        outfilehandle.close()
-        print "Sleeping for " + str(sleeptime)
-        time.sleep(sleeptime)
-#------Main end
+
+
+                if(gameSetup):
+                        copy_tree("template", outdir)
+                        os.remove(outdir + "template.html")
+                        gameSetup = False
+
+                #------Make Tables
+                for server in serverstocheck:
+                    thistable = reloadScoreBoard(server)
+                    serverlabeltag=("<" + server[0] + ">").upper()
+                    print bcolors.GREEN + bcolors.BOLD + "Updating " + bcolors.ENDC + bcolors.BOLD + serverlabeltag + bcolors.ENDC + " tag in the template"
+                    scorepagestring = scorepagestring.replace(serverlabeltag,thistable)
+                #------Make Total Table
+                thistable = reloadScoreBoard(["Total",""])
+                serverlabeltag=("<TOTAL>").upper()
+                print bcolors.GREEN + bcolors.BOLD + "Updating " + bcolors.ENDC + bcolors.BOLD + serverlabeltag + bcolors.ENDC + " tag in the template"
+                scorepagestring = scorepagestring.replace(serverlabeltag,thistable)
+                #------Making the score page
+                print bcolors.BLUE + bcolors.BOLD + "Updating Scoreboard " + bcolors.ENDC + bcolors.BOLD + outfile + bcolors.ENDC
+                outfilehandle = open(outfile, 'w')
+                outfilehandle.write(scorepagestring)
+                outfilehandle.close()
+                print bcolors.CYAN + bcolors.BOLD + "Next update in: " + bcolors.ENDC + str(sleeptime) + bcolors.BOLD + " second(s)" + bcolors.ENDC
+                time.sleep(sleeptime)
+
+if __name__ == "__main__":
+    main()
