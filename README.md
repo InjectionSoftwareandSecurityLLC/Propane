@@ -1,6 +1,6 @@
 # Propane
 
-<p align="center"> 
+<p align="center">
 <img src="https://raw.githubusercontent.com/InjectionSoftwareDevelopment/Propane/master/propane-logo.png" width=450px height=350px/>
 </p>
 
@@ -25,13 +25,14 @@ Watch this project progress, but we strongly reccommend using NetKotH until we'v
 
 # TODO:
 1. ~~Document base code, and write user instructions~~ ✅
-2. Create "official" logo
-3. Create white/black list feature
-4. Create timed event feature
-5. Propane Accessories
-6. Setup/Install Scripts
-7. INITIAL RELEASE ??????? (MAYBE)
-8. TBD...Whatever else we come up with
+2. ~Create "official" logo~ ✅
+3. Update screenshots
+4. Create white/black list feature
+5. Create timed event feature
+6. Propane Accessories
+7. Setup/Install Scripts
+8. INITIAL RELEASE ??????? (MAYBE)
+9. TBD...Whatever else we come up with
 
 
 
