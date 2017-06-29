@@ -193,35 +193,40 @@ def main():
         global gameSetup
 
         while True:
-                #------Check files that may have changed since las loop
-                loadConfig() #-------Grab core config values, you have the option to edit config file as the game runs
-                initScoreFile() #In case score setions for a bax are not there
-                templatefilehandle = open("template/template.html", 'r')
-                scorepagestring=templatefilehandle.read()
-                #------Look at all the pages to see who owns them.
+
+                # Load Conifgurations
+                loadConfig()
+                # Init Score File
+                initScoreFile()
+                # Open template file
+                templateFile = open("template/template.html", 'r')
+                # Read in template file
+                scorePage = templateFile.read()
+                # Do some scoring!
                 score()
 
+                # Do one-time set up stuff on start of the game
                 if(gameSetup):
                         print bcolors.CYAN + bcolors.BOLD + "Game Setup: " + bcolors.ENDC + " copying template files"
                         copy_tree("template", outdir)
                         os.remove(outdir + "template.html")
                         gameSetup = False
 
-                #------Make Tables
+                # Update Server Scores on Scoreboard
                 for server in serversToCheck:
                     thistable = reloadScoreBoard(server)
                     serverlabeltag=("<" + server[0] + ">").upper()
                     print bcolors.GREEN + bcolors.BOLD + "Updating " + bcolors.ENDC + bcolors.BOLD + serverlabeltag + bcolors.ENDC + " tag in the template"
-                    scorepagestring = scorepagestring.replace(serverlabeltag,thistable)
-                #------Make Total Table
+                    scorePage = scorePage.replace(serverlabeltag,thistable)
+                # Update Total Scores on Scoreboard
                 thistable = reloadScoreBoard(["Total",""])
                 serverlabeltag=("<TOTAL>").upper()
                 print bcolors.GREEN + bcolors.BOLD + "Updating " + bcolors.ENDC + bcolors.BOLD + serverlabeltag + bcolors.ENDC + " tag in the template"
-                scorepagestring = scorepagestring.replace(serverlabeltag,thistable)
-                #------Making the score page
+                scorePage = scorePage.replace(serverlabeltag,thistable)
+                # Write out the updates made to the Scoreboard and get ready for next interval
                 print bcolors.BLUE + bcolors.BOLD + "Updating Scoreboard " + bcolors.ENDC + bcolors.BOLD + outfile + bcolors.ENDC
                 outfilehandle = open(outfile, 'w')
-                outfilehandle.write(scorepagestring)
+                outfilehandle.write(scorePage)
                 outfilehandle.close()
                 print bcolors.CYAN + bcolors.BOLD + "Next update in: " + bcolors.ENDC + str(sleepTime) + bcolors.BOLD + " second(s)" + bcolors.ENDC
                 time.sleep(sleepTime)
