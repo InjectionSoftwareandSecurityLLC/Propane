@@ -1,4 +1,4 @@
-# Propane Config
+# Propane Configuration
 
 Welcome to the documentation for the propane_config.ini file.
 
