@@ -1,7 +1,8 @@
 # Propane
 
-<img src="https://raw.githubusercontent.com/InjectionSoftwareDevelopment/Propane/master/temp_logo.png" width=250px height=350px/>
-
+<p align="center"> 
+<img src="https://raw.githubusercontent.com/InjectionSoftwareDevelopment/Propane/master/propane-logo.png" width=450px height=350px/>
+</p>
 
 
 An Open Source KoTH Platform based on [NetKotH](https://github.com/NetKotH/netkoth-python)

@@ -41,7 +41,7 @@ body, h1, h2, h3, h4, h5, h6 {
   /* If you're making other pages, make sure there is 50px of padding to make sure the navbar doesn't overlap content! */
   padding-bottom: 50px;
   text-align: center;
-  color: #69d8fd;
+  color: #15C6FF;
   background: url(../img/intro-bg.jpg) no-repeat center center;
   background-size: cover;
 }
