@@ -1,13 +1,13 @@
 # Propane Scores
 
-Scores in Propane are contained the propane_scores.txt file. 
+Scores in Propane are contained the propane_scores.txt file.
 
 Yeah we know what your thinking "Have you ever heard of a database loser???".
 
 Yes we have, and while we are making many changes to Propane from its base of NetKoTH, there are somethings we just don't want to change. One of those things is how NetKoTH has this cool parser that lets you handle scoring without needing a heavy and complex database system. Also not having a "real" database means one less input vector if some mean rule breaker wants to attack the score box.
 
 
-All in all Propane should never be run in a directory accessible to users in any way shape or form (covered more in setup.md which is coming soon!). Therefore Propane can do funky things that make life easy, like write easy to parse score data to a text file, and make system calls, without worrying about security implications. As long as you set up the scoring server correctly this doesn't matter (besides if they get into the scoring server, knowing the behind the scenes stuff Propane is doing is meaningless, they own you). So we chose simplicity, elegance, and cool text parsing > clunky database dependency. It was one of the things we thought made the original NetKoTH great so it's here to stay!
+All in all Propane should NEVER be run in a directory accessible to users in any way shape or form. Therefore, Propane can do funky things that make life easy, like write easy to parse score data to a text file, and make system calls, all without worrying about security implications. As long as you set up the scoring server correctly this doesn't matter (besides if they get into the scoring server, knowing the behind the scenes stuff Propane is doing is meaningless, they own you. Besides Propane is open source, they know anyway!). So we chose simplicity, elegance, and cool text parsing > clunky database dependency. It was one of the things we thought made the original NetKoTH great so it's here to stay!
 
 
 So how do we use the propane_scores.txt?
@@ -47,11 +47,11 @@ myntal = 60
 The scoring engine takes care of all of this for you. It's the primary functionality of Propane. However this documentation is here because it is important to understand the format of the propane_scores.txt file show ways that you can edit scores dynamically.
 
 
-Want to penalize a player and deduct points? 
+Want to penalize a player and deduct points?
 
-Simply change their score in the propane_scores.txt file in real time as the game is running! 
+Simply change their score in the propane_scores.txt file in real time as the game is running!
 
-Want to merge team names/points cause someone accidentally mistyped their team name on a box and now have two different scores? 
+Want to merge team names/points cause someone accidentally mistyped their team name on a box and now have two different scores?
 
 You can do that too!
 
