@@ -46,8 +46,12 @@ Example:
 
 
 
-## Adding Servers/Changing Settings Dynamically
+## Adding TARGETS/Changing Settings Dynamically
 
 Previously it was stated that the propane_config.ini can be edited dynamically while the game is running. This means you can add servers or change the location of the scoreboard output "on the fly". So if you see things going to smoothly and wish to trip up competitors by adding a new machine, go for it!
 
-Simply edit the file like you would normally and change the values you desire to change. On the next loop specified by the timer interval your settings should update. You can even change the timer interval if you want to speed up scoring!
+Simply edit the file like you would normally and change the values you desire to change.
+
+This includes adding new TARGETs. To add a new TARGET simply follow the previous instructions for adding a TARGET, and you can add them as the game is running.
+
+After you make changes, on the next interval specified by the timer your settings should update. You can even change the timer interval if you want to speed up scoring!

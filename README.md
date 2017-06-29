@@ -11,6 +11,11 @@ Currently very much a WIP!
 Watch this project progress, but we strongly reccommend using NetKotH until we've rolled out a release!
 
 
+# Documentation:
+[Propane Documentation](https://github.com/InjectionSoftwareDevelopment/Propane/blob/master/doc/markdown/)
+
+
+
 # How to use Propane:
 [Propane Setup Guide](https://github.com/InjectionSoftwareDevelopment/Propane/blob/master/doc/markdown/propane_setup.md)
 
@@ -18,13 +23,14 @@ Watch this project progress, but we strongly reccommend using NetKotH until we'v
 
 
 # TODO:
-1. Document base code, and write user instructions
+1. ~~Document base code, and write user instructions~~ ✅
 2. Create "official" logo
 3. Create white/black list feature
 4. Create timed event feature
-5. Setup/Install Scripts
-6. INITIAL RELEASE ??????? (MAYBE)
-7. TBD...Whatever else we come up with
+5. Propane Accessories
+6. Setup/Install Scripts
+7. INITIAL RELEASE ??????? (MAYBE)
+8. TBD...Whatever else we come up with
 
 
 

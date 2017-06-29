@@ -35,6 +35,7 @@ We reccommend using Apache to host the scoreboard on whatever machine you are us
     [Targets]
     linux = http://192.168.1.13/index.html
     windoos = http://192.168.1.13/test.html
+
     ```
 
     **OR**
@@ -51,6 +52,7 @@ We reccommend using Apache to host the scoreboard on whatever machine you are us
     windoos = http://192.168.1.13/test.html
     ```
 6. Add in the proper **TARGETS** to the config file. See [Propane Config](https://github.com/InjectionSoftwareDevelopment/Propane/blob/master/doc/markdown/propane_config.md) docs for more info.
+7. Add in the **`<TARGET>` tags** to the `template.html` in your `templates/` directory. See [Propane Templates](https://github.com/InjectionSoftwareDevelopment/Propane/blob/master/doc/markdown/propane_templates.md) for how to edit templates.
 7. Start Propane!
     - `python propane.py`
 
