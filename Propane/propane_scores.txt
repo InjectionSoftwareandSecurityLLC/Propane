@@ -1,0 +1,22 @@
+[TotalScores]
+myntal = 45
+3ndg4me = 43
+clamsec = 44
+nate = 44
+
+[linuxScores]
+myntal = 32
+clamsec = 12
+
+[windoosScores]
+3ndg4me = 31
+nate = 13
+
+[ms3Scores]
+clamsec = 32
+3ndg4me = 12
+
+[webserverScores]
+nate = 31
+myntal = 13
+
