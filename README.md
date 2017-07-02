@@ -26,7 +26,7 @@ Watch this project progress, but we strongly reccommend using NetKotH until we'v
 # TODO:
 1. ~~Document base code, and write user instructions~~ ✅
 2. ~Create "official" logo~ ✅
-3. Update screenshots
+3. ~Update screenshots~ ✅
 4. Create white/black list feature
 5. Create timed event feature
 6. Propane Accessories
