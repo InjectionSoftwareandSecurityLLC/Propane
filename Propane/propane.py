@@ -100,7 +100,7 @@ def score():
                 url = urllib.request.urlopen(server[1],None,10)
                 #url = urllib2.urlopen(server[1])
                 html = url.read()
-                team = re.search('<team>(.*)</team>', html, re.IGNORECASE).group(1).strip().replace("=","").replace("<","").replace(">","")
+                team = re.search('<team>(.*)</team>', str(html), re.IGNORECASE).group(1).strip().replace("=","").replace("<","").replace(">","")
                 print(bcolors.BOLD + "Server " + server[0] + bcolors.ENDC + " pwned by " + bcolors.RED + team + bcolors.ENDC)
                 serverscoressection = server[0]+"Scores"
                 if not scores.has_option("TotalScores", team):
