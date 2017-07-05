@@ -71,7 +71,7 @@ To do so, follow these steps.
 1. Log into Github
 2. Visit the Propane repo
 3. Click on the button that says "Compare & Pull Request"
-[Pull Request](https://raw.githubusercontent.com/InjectionSoftwareDevelopment/Propane/master/doc/pull-request.png)
+<img src="https://raw.githubusercontent.com/InjectionSoftwareDevelopment/Propane/master/doc/pull-request.png"/>
 4. Fill out the Pull Request.
 
     The Following image shows the main parts of the Pull Request that need to by populated before submission. You will need to name your request, and add in a description of the feature in the appropriate text boxes provided during the request creation process.
@@ -79,10 +79,10 @@ To do so, follow these steps.
     The three sections that are outlined in the image below are required in order to submit your request. 
     
     Especially make sure you specifiy your feature type in the "Labels" field. This will help us prioritize Pull Requests a little better since we will be able to differintiate between whether a feature is a bug fix, or a new feature based on the label you provide.
-[Pull Request Creation](https://raw.githubusercontent.com/InjectionSoftwareDevelopment/Propane/master/doc/pull-request-creation.png)
+<img src="https://raw.githubusercontent.com/InjectionSoftwareDevelopment/Propane/master/doc/pull-request-creation.png"/>
 5. Submit the Pull Request!
 
-Aaaaannnnndddddd now you wait!
+And now you wait... :)
 
 A maintainer will review your submission as soon as possible. Depending on your feature we may have to do some rigourous testing to make sure it won't break anything, so please be patient. If we run into any issues we will communicate with you to resolve them and do our best to get your contribution merged in.
 
