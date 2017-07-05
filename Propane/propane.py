@@ -1,11 +1,11 @@
-#!/usr/local/bin/python
+#!/usr/local/bin/python3
 
 """
 Libraries:
 
-urllib and urllib2: Used for scanning and reading HTML pages from TARGET Servers
+urllib: Used for scanning and reading HTML pages from TARGET Servers
 re: Regex library used for searching for data in a particular format. Namely searching HTML pages for <team> tags
-ConfigParser: Parser library used for parsing scores and configuration data.
+configparser Parser library used for parsing scores and configuration data.
 time: Time used for delaying score updates at a set interval.
 distutils.dir_util (copy_tree): Used to load templates. Automatically creates and copies a
                                 directory set in the propane_config file
@@ -13,10 +13,9 @@ os: Currently only used for removing uneeded template files generated on initial
     Used to make general OS calls as needed.
 
 """
-import urllib2
-import urllib
+import urllib.request
 import re
-import ConfigParser
+import configparser
 import time
 from distutils.dir_util import copy_tree
 import os
@@ -56,8 +55,8 @@ gameSetup: Initialize the global boolean that is used to test if this is the ini
             This is used so that any set up is done only on the first iteration, but currently is
             only needed to load in the initial template.
 '''
-config = ConfigParser.RawConfigParser()
-scores = ConfigParser.RawConfigParser()
+config = configparser.RawConfigParser()
+scores = configparser.RawConfigParser()
 configFile =""
 serversToCheck = ""
 sleepTime = ""
@@ -74,7 +73,7 @@ loadConfig():
 
 
 def loadConfig():
-        print bcolors.CYAN + bcolors.BOLD + "Loading Configurations" + bcolors.ENDC
+        print(bcolors.CYAN + bcolors.BOLD + "Loading Configurations" + bcolors.ENDC)
         global configFile, serversToCheck, sleepTime, outfile, outdir
         configFile = config.read("propane_config.ini")
         serversToCheck = config.items("Targets")
@@ -97,12 +96,12 @@ def score():
         scoresfile = scores.read("propane_scores.txt")
         for server in serversToCheck:
             try:
-                print bcolors.GREEN + bcolors.BOLD + "Checking Server: " + bcolors.RED + server[0] + bcolors.ENDC + " @ " + bcolors.BOLD + server[1] + bcolors.ENDC
-                url = urllib2.urlopen(server[1],None,10)
+                print(bcolors.GREEN + bcolors.BOLD + "Checking Server: " + bcolors.RED + server[0] + bcolors.ENDC + " @ " + bcolors.BOLD + server[1] + bcolors.ENDC)
+                url = urllib.request.urlopen(server[1],None,10)
                 #url = urllib2.urlopen(server[1])
                 html = url.read()
                 team = re.search('<team>(.*)</team>', html, re.IGNORECASE).group(1).strip().replace("=","").replace("<","").replace(">","")
-                print bcolors.BOLD + "Server " + server[0] + bcolors.ENDC + " pwned by " + bcolors.RED + team + bcolors.ENDC
+                print(bcolors.BOLD + "Server " + server[0] + bcolors.ENDC + " pwned by " + bcolors.RED + team + bcolors.ENDC)
                 serverscoressection = server[0]+"Scores"
                 if not scores.has_option("TotalScores", team):
                     scores.set("TotalScores", team, 0)
@@ -113,10 +112,10 @@ def score():
                 currentscore = scores.getint( serverscoressection,team)
                 scores.set( serverscoressection, team, currentscore+1)
             except IOError:
-                print bcolors.FAIL + bcolors.BOLD + server[0] + bcolors.ENDC + " @ " + bcolors.FAIL + bcolors.BOLD + server[1] + bcolors.ENDC + " might be down, skipping it"
+                print(bcolors.FAIL + bcolors.BOLD + server[0] + bcolors.ENDC + " @ " + bcolors.FAIL + bcolors.BOLD + server[1] + bcolors.ENDC + " might be down, skipping it")
             except AttributeError:
-                print bcolors.BOLD + "Server " + bcolors.RED + server[0] + bcolors.ENDC + " might not be " + bcolors.RED + "pwned " + bcolors.ENDC + "yet"
-        with open("propane_scores.txt", 'wb') as scoresfile:
+                print(bcolors.BOLD + "Server " + bcolors.RED + server[0] + bcolors.ENDC + " might not be " + bcolors.RED + "pwned " + bcolors.ENDC + "yet")
+        with open("propane_scores.txt", 'w') as scoresfile:
                 scores.write(scoresfile)
 
 '''
@@ -148,7 +147,7 @@ reloadScoreBoard():
 
 
 def reloadScoreBoard(server):
-        print bcolors.BLUE + bcolors.BOLD + "Reloading Scoreboard for: " + bcolors.ENDC + bcolors.BOLD + server[0] + bcolors.ENDC
+        print(bcolors.BLUE + bcolors.BOLD + "Reloading Scoreboard for: " + bcolors.ENDC + bcolors.BOLD + server[0] + bcolors.ENDC)
         try:
             serverscoressection = server[0]+"Scores"
             serverscores = scores.items(serverscoressection)
@@ -168,7 +167,7 @@ def reloadScoreBoard(server):
             tableresults = tableresults + "</table></div>"
             return tableresults
         except:
-            print bcolors.FAIL + bcolors.BOLD + "No section for " + server[0] + " (check your template for errors)" + bcolors.ENDC
+            print(bcolors.FAIL + bcolors.BOLD + "No section for " + server[0] + " (check your template for errors)" + bcolors.ENDC)
 
 '''
 main():
@@ -207,7 +206,7 @@ def main():
 
                 # Do one-time set up stuff on start of the game
                 if(gameSetup):
-                        print bcolors.CYAN + bcolors.BOLD + "Game Setup: " + bcolors.ENDC + " copying template files"
+                        print(bcolors.CYAN + bcolors.BOLD + "Game Setup: " + bcolors.ENDC + " copying template files")
                         copy_tree("template", outdir)
                         os.remove(outdir + "template.html")
                         gameSetup = False
@@ -216,19 +215,19 @@ def main():
                 for server in serversToCheck:
                     thistable = reloadScoreBoard(server)
                     serverlabeltag=("<" + server[0] + ">").upper()
-                    print bcolors.GREEN + bcolors.BOLD + "Updating " + bcolors.ENDC + bcolors.BOLD + serverlabeltag + bcolors.ENDC + " tag in the template"
+                    print(bcolors.GREEN + bcolors.BOLD + "Updating " + bcolors.ENDC + bcolors.BOLD + serverlabeltag + bcolors.ENDC + " tag in the template")
                     scorePage = scorePage.replace(serverlabeltag,thistable)
                 # Update Total Scores on Scoreboard
                 thistable = reloadScoreBoard(["Total",""])
                 serverlabeltag=("<TOTAL>").upper()
-                print bcolors.GREEN + bcolors.BOLD + "Updating " + bcolors.ENDC + bcolors.BOLD + serverlabeltag + bcolors.ENDC + " tag in the template"
+                print(bcolors.GREEN + bcolors.BOLD + "Updating " + bcolors.ENDC + bcolors.BOLD + serverlabeltag + bcolors.ENDC + " tag in the template")
                 scorePage = scorePage.replace(serverlabeltag,thistable)
                 # Write out the updates made to the Scoreboard and get ready for next interval
-                print bcolors.BLUE + bcolors.BOLD + "Updating Scoreboard " + bcolors.ENDC + bcolors.BOLD + outfile + bcolors.ENDC
+                print(bcolors.BLUE + bcolors.BOLD + "Updating Scoreboard " + bcolors.ENDC + bcolors.BOLD + outfile + bcolors.ENDC)
                 outfilehandle = open(outfile, 'w')
                 outfilehandle.write(scorePage)
                 outfilehandle.close()
-                print bcolors.CYAN + bcolors.BOLD + "Next update in: " + bcolors.ENDC + str(sleepTime) + bcolors.BOLD + " second(s)" + bcolors.ENDC
+                print(bcolors.CYAN + bcolors.BOLD + "Next update in: " + bcolors.ENDC + str(sleepTime) + bcolors.BOLD + " second(s)" + bcolors.ENDC)
                 time.sleep(sleepTime)
 
 
