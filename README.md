@@ -27,12 +27,13 @@ Watch this project progress, but we strongly reccommend using NetKotH until we'v
 1. ~~Document base code, and write user instructions~~ ✅
 2. ~Create "official" logo~ ✅
 3. ~Update screenshots~ ✅
-4. Create white/black list feature
-5. Create timed event feature
-6. Propane Accessories
-7. Setup/Install Scripts
-8. INITIAL RELEASE ??????? (MAYBE)
-9. TBD...Whatever else we come up with
+4. ~Upgrade to Python3~ ✅
+5. Create white/black list feature
+6. Create timed event feature
+7. Propane Accessories
+9. Setup/Install Scripts
+9. INITIAL RELEASE ??????? (MAYBE)
+10. TBD...Whatever else we come up with
 
 
 
