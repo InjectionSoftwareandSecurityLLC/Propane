@@ -54,7 +54,12 @@ We reccommend using Apache to host the scoreboard on whatever machine you are us
 6. Add in the proper **TARGETS** to the config file. See [Propane Config](https://github.com/InjectionSoftwareDevelopment/Propane/blob/master/doc/markdown/propane_config.md) docs for more info.
 7. Add in the **`<TARGET>` tags** to the `template.html` in your `templates/` directory. See [Propane Templates](https://github.com/InjectionSoftwareDevelopment/Propane/blob/master/doc/markdown/propane_templates.md) for how to edit templates.
 7. Start Propane!
-    - `python propane.py`
+    - `chmod +x propane.py`
+    - `./propane.py`
+
+    **OR**
+
+    - `python3 propane.py`
 
 Now you should be playing a mean game of KoTH using Propane as your scoreboard!
 
