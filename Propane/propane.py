@@ -19,6 +19,7 @@ import configparser
 import time
 from distutils.dir_util import copy_tree
 import os
+import csv
 
 
 # Colors for terminal output. Makes things pretty.
@@ -57,8 +58,9 @@ gameSetup: Initialize the global boolean that is used to test if this is the ini
 '''
 config = configparser.RawConfigParser()
 scores = configparser.RawConfigParser()
-configFile =""
+configFile = ""
 serversToCheck = ""
+whiteListInit = ""
 sleepTime = ""
 outfile = ""
 outdir = ""
@@ -74,12 +76,14 @@ loadConfig():
 
 def loadConfig():
         print(bcolors.CYAN + bcolors.BOLD + "Loading Configurations" + bcolors.ENDC)
-        global configFile, serversToCheck, sleepTime, outfile, outdir
+        global configFile, serversToCheck, whiteListInit, sleepTime, outfile, outdir, whiteListIsOn
         configFile = config.read("propane_config.ini")
         serversToCheck = config.items("Targets")
+        whiteListInit = config.items("WhiteList")
         sleepTime = config.getint("General", "sleepTime")
         outfile = config.get("General", "outfile")
         outdir = config.get("General", "outdir")
+        whiteListIsOn = config.getboolean("General", "whiteListOn")
 
 '''
 score():
@@ -92,7 +96,7 @@ score():
     If no one owns the box scanned, then no points are awarded.
 '''
 
-def score():
+def score(whiteList):
         scoresfile = scores.read("propane_scores.txt")
         for server in serversToCheck:
             try:
@@ -103,6 +107,10 @@ def score():
                 team = re.search('<team>(.*)</team>', str(html), re.IGNORECASE).group(1).strip().replace("=","").replace("<","").replace(">","")
                 print(bcolors.BOLD + "Server " + server[0] + bcolors.ENDC + " pwned by " + bcolors.RED + team + bcolors.ENDC)
                 serverscoressection = server[0]+"Scores"
+
+                if whiteListIsOn:
+                    print("We on")
+
                 if not scores.has_option("TotalScores", team):
                     scores.set("TotalScores", team, 0)
                 currentscore = scores.getint( "TotalScores",team)
@@ -149,8 +157,10 @@ reloadScoreBoard():
 def reloadScoreBoard(server):
         print(bcolors.BLUE + bcolors.BOLD + "Reloading Scoreboard for: " + bcolors.ENDC + bcolors.BOLD + server[0] + bcolors.ENDC)
         try:
+
             serverscoressection = server[0]+"Scores"
             serverscores = scores.items(serverscoressection)
+
             tableresults = "<div class=\"col-md-12\" id=\"" + server[0] + "\">"
             tableresults = tableresults + "<table class=\"table\" border=\"2\">\n<tr>"
             tableresults = tableresults + "<td colspan=\"2\"><center><h3>" +(server[0]).title() + "</h3><br>"
@@ -202,7 +212,15 @@ def main():
                 # Read in template file
                 scorePage = templateFile.read()
                 # Do some scoring!
-                score()
+
+                whiteList = ""
+
+                for user in whiteListInit:
+                    print(user)
+                    parseWhiteList = csv.reader([user[1]])
+                    for user in parseWhiteList:
+                        whiteList = user
+                score(whiteList)
 
                 # Do one-time set up stuff on start of the game
                 if(gameSetup):
@@ -212,6 +230,10 @@ def main():
                         gameSetup = False
 
                 # Update Server Scores on Scoreboard
+
+
+               
+
                 for server in serversToCheck:
                     thistable = reloadScoreBoard(server)
                     serverlabeltag=("<" + server[0] + ">").upper()
