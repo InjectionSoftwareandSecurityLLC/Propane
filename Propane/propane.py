@@ -109,16 +109,26 @@ def score(whiteList):
                 serverscoressection = server[0]+"Scores"
 
                 if whiteListIsOn:
-                    print("We on")
-
-                if not scores.has_option("TotalScores", team):
-                    scores.set("TotalScores", team, 0)
-                currentscore = scores.getint( "TotalScores",team)
-                scores.set( "TotalScores", team, currentscore+1)
-                if not scores.has_option(serverscoressection, team):
-                    scores.set(serverscoressection, team, 0)
-                currentscore = scores.getint( serverscoressection,team)
-                scores.set( serverscoressection, team, currentscore+1)
+                    if team in whiteList:
+                        if not scores.has_option("TotalScores", team):
+                            scores.set("TotalScores", team, 0)
+                        currentscore = scores.getint( "TotalScores",team)
+                        scores.set( "TotalScores", team, currentscore+1)
+                        if not scores.has_option(serverscoressection, team):
+                            scores.set(serverscoressection, team, 0)
+                        currentscore = scores.getint( serverscoressection,team)
+                        scores.set( serverscoressection, team, currentscore+1)
+                    else:
+                        print(bcolors.FAIL + bcolors.BOLD + "User: " + team + " not in white list. Score was not updated" + bcolors.ENDC)
+                else:
+                    if not scores.has_option("TotalScores", team):
+                        scores.set("TotalScores", team, 0)
+                    currentscore = scores.getint( "TotalScores",team)
+                    scores.set( "TotalScores", team, currentscore+1)
+                    if not scores.has_option(serverscoressection, team):
+                        scores.set(serverscoressection, team, 0)
+                    currentscore = scores.getint( serverscoressection,team)
+                    scores.set( serverscoressection, team, currentscore+1)
             except IOError:
                 print(bcolors.FAIL + bcolors.BOLD + server[0] + bcolors.ENDC + " @ " + bcolors.FAIL + bcolors.BOLD + server[1] + bcolors.ENDC + " might be down, skipping it")
             except AttributeError:
@@ -211,15 +221,16 @@ def main():
                 templateFile = open("template/template.html", 'r')
                 # Read in template file
                 scorePage = templateFile.read()
-                # Do some scoring!
-
+         
+                # Load up the white list
                 whiteList = ""
 
                 for user in whiteListInit:
-                    print(user)
                     parseWhiteList = csv.reader([user[1]])
                     for user in parseWhiteList:
                         whiteList = user
+                
+                # Do some scoring!
                 score(whiteList)
 
                 # Do one-time set up stuff on start of the game
