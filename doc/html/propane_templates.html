@@ -20,61 +20,77 @@
 <p>That is all you really need in order to customize the template. Below is an example of how to add the new &lt;TARGET&gt; tag to the default Propane template:</p>
 <h3><a id="Before_39"></a>Before</h3>
 <pre><code class="language-HTML">
-<span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">"content-section-a"</span>&gt;</span>
-  <span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">"container"</span>&gt;</span>
-    <span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">"row"</span>&gt;</span>
-      <span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">"col-lg-12"</span>&gt;</span>
-        <span class="hljs-tag">&lt;<span class="hljs-title">h2</span>&gt;</span>Scores<span class="hljs-tag">&lt;/<span class="hljs-title">h1</span>&gt;</span>
-        <span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">"table-responsive"</span>&gt;</span>
-      <span class="hljs-tag">&lt;<span class="hljs-title">table</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">"table"</span>&gt;</span>
-        <span class="hljs-tag">&lt;<span class="hljs-title">tr</span>&gt;</span>
-          <span class="hljs-tag">&lt;<span class="hljs-title">td</span> <span class="hljs-attribute">valign</span>=<span class="hljs-value">"top"</span> <span class="hljs-attribute">align</span>=<span class="hljs-value">"center"</span>&gt;</span>
-            <span class="hljs-tag">&lt;<span class="hljs-title">LINUX</span>&gt;</span>
-          <span class="hljs-tag">&lt;/<span class="hljs-title">td</span>&gt;</span>
-          <span class="hljs-tag">&lt;<span class="hljs-title">td</span> <span class="hljs-attribute">valign</span>=<span class="hljs-value">"top"</span> <span class="hljs-attribute">align</span>=<span class="hljs-value">"center"</span>&gt;</span>
-            <span class="hljs-tag">&lt;<span class="hljs-title">WINDOOS</span>&gt;</span>
-          <span class="hljs-tag">&lt;/<span class="hljs-title">td</span>&gt;</span>
-          <span class="hljs-tag">&lt;<span class="hljs-title">td</span> <span class="hljs-attribute">valign</span>=<span class="hljs-value">"top"</span> <span class="hljs-attribute">align</span>=<span class="hljs-value">"center"</span>&gt;</span>
-            <span class="hljs-tag">&lt;<span class="hljs-title">TOTAL</span>&gt;</span>
-          <span class="hljs-tag">&lt;/<span class="hljs-title">td</span>&gt;</span>
-        <span class="hljs-tag">&lt;/<span class="hljs-title">tr</span>&gt;</span>
-      <span class="hljs-tag">&lt;/<span class="hljs-title">table</span>&gt;</span>
-      <span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
+
+    <span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">"content-section-a"</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">"container"</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">"row"</span>&gt;</span>
+                <span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">"col-lg-12"</span>&gt;</span>
+                    <span class="hljs-tag">&lt;<span class="hljs-title">h2</span>&gt;</span>Scores<span class="hljs-tag">&lt;/<span class="hljs-title">h1</span>&gt;</span>
+                <span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">"row"</span>&gt;</span>
+                    
+                        <span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">"col-md-3 col-xs-6"</span>&gt;</span>
+                            <span class="hljs-tag">&lt;<span class="hljs-title">LINUX</span>&gt;</span>
+                        <span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>          
+                        <span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">"col-md-3 col-xs-6"</span>&gt;</span>
+                            <span class="hljs-tag">&lt;<span class="hljs-title">WINDOOS</span>&gt;</span>
+                        <span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>              
+                        <span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">"col-md-3 col-xs-6"</span>&gt;</span>
+                            <span class="hljs-tag">&lt;<span class="hljs-title">MS3</span>&gt;</span>
+                        <span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>                  
+                        <span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">"col-md-3 col-xs-6"</span>&gt;</span>
+                            <span class="hljs-tag">&lt;<span class="hljs-title">WEBSERVER</span>&gt;</span>
+                        <span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
+
+                <span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
+           <span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">"row"</span>&gt;</span>
+                    <span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">"col-md-12"</span>&gt;</span>
+                        <span class="hljs-tag">&lt;<span class="hljs-title">TOTAL</span>&gt;</span>
+                    <span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
+                <span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
+                <span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
+            <span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
+        <span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
     <span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
-  <span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
-<span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
 <span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
 </code></pre>
-<h3><a id="After_69"></a>After</h3>
-<pre><code class="language-HTML"><span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">"content-section-a"</span>&gt;</span>
-  <span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">"container"</span>&gt;</span>
-    <span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">"row"</span>&gt;</span>
-      <span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">"col-lg-12"</span>&gt;</span>
-        <span class="hljs-tag">&lt;<span class="hljs-title">h2</span>&gt;</span>Scores<span class="hljs-tag">&lt;/<span class="hljs-title">h1</span>&gt;</span>
-        <span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">"table-responsive"</span>&gt;</span>
-      <span class="hljs-tag">&lt;<span class="hljs-title">table</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">"table"</span>&gt;</span>
-        <span class="hljs-tag">&lt;<span class="hljs-title">tr</span>&gt;</span>
-          <span class="hljs-tag">&lt;<span class="hljs-title">td</span> <span class="hljs-attribute">valign</span>=<span class="hljs-value">"top"</span> <span class="hljs-attribute">align</span>=<span class="hljs-value">"center"</span>&gt;</span>
-            <span class="hljs-tag">&lt;<span class="hljs-title">LINUX</span>&gt;</span>
-          <span class="hljs-tag">&lt;/<span class="hljs-title">td</span>&gt;</span>
-          <span class="hljs-tag">&lt;<span class="hljs-title">td</span> <span class="hljs-attribute">valign</span>=<span class="hljs-value">"top"</span> <span class="hljs-attribute">align</span>=<span class="hljs-value">"center"</span>&gt;</span>
-            <span class="hljs-tag">&lt;<span class="hljs-title">WINDOOS</span>&gt;</span>
-          <span class="hljs-tag">&lt;/<span class="hljs-title">td</span>&gt;</span>
-          <span class="hljs-tag">&lt;<span class="hljs-title">td</span> <span class="hljs-attribute">valign</span>=<span class="hljs-value">"top"</span> <span class="hljs-attribute">align</span>=<span class="hljs-value">"center"</span>&gt;</span>
-            <span class="hljs-tag">&lt;<span class="hljs-title">SUPERCOOLVULNBOX</span>&gt;</span>
-          <span class="hljs-tag">&lt;/<span class="hljs-title">td</span>&gt;</span>
-          <span class="hljs-tag">&lt;<span class="hljs-title">td</span> <span class="hljs-attribute">valign</span>=<span class="hljs-value">"top"</span> <span class="hljs-attribute">align</span>=<span class="hljs-value">"center"</span>&gt;</span>
-            <span class="hljs-tag">&lt;<span class="hljs-title">TOTAL</span>&gt;</span>
-          <span class="hljs-tag">&lt;/<span class="hljs-title">td</span>&gt;</span>
-        <span class="hljs-tag">&lt;/<span class="hljs-title">tr</span>&gt;</span>
-      <span class="hljs-tag">&lt;/<span class="hljs-title">table</span>&gt;</span>
-      <span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
+<h3><a id="After_77"></a>After</h3>
+<pre><code class="language-HTML">
+    <span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">"content-section-a"</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">"container"</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">"row"</span>&gt;</span>
+                <span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">"col-lg-12"</span>&gt;</span>
+                    <span class="hljs-tag">&lt;<span class="hljs-title">h2</span>&gt;</span>Scores<span class="hljs-tag">&lt;/<span class="hljs-title">h1</span>&gt;</span>
+                <span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">"row"</span>&gt;</span>
+                        <span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">"col-md-3 col-xs-6"</span>&gt;</span>
+                            <span class="hljs-tag">&lt;<span class="hljs-title">LINUX</span>&gt;</span>
+                        <span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>          
+                        <span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">"col-md-3 col-xs-6"</span>&gt;</span>
+                            <span class="hljs-tag">&lt;<span class="hljs-title">WINDOOS</span>&gt;</span>
+                        <span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>              
+                        <span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">"col-md-3 col-xs-6"</span>&gt;</span>
+                            <span class="hljs-tag">&lt;<span class="hljs-title">MS3</span>&gt;</span>
+                        <span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>                  
+                        <span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">"col-md-3 col-xs-6"</span>&gt;</span>
+                            <span class="hljs-tag">&lt;<span class="hljs-title">WEBSERVER</span>&gt;</span>
+                        <span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
+                <span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">"row"</span>&gt;</span>
+                        <span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">"col-md-3 col-xs-6"</span>&gt;</span>
+                            <span class="hljs-tag">&lt;<span class="hljs-title">SUPERCOOLVULNBOX</span>&gt;</span>
+                        <span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>          
+                <span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
+          <span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">"row"</span>&gt;</span>
+                    <span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">"col-md-12"</span>&gt;</span>
+                        <span class="hljs-tag">&lt;<span class="hljs-title">TOTAL</span>&gt;</span>
+                    <span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
+                <span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
+                <span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
+            <span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
+        <span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
     <span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
-  <span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
-<span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
 <span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
 </code></pre>
-<h2><a id="Adding_TARGETS_Dynamically_101"></a>Adding TARGETS Dynamically</h2>
+<h2><a id="Adding_TARGETS_Dynamically_117"></a>Adding TARGETS Dynamically</h2>
 <p>Adding targets to your template as the KoTH game is running supported by Propane!</p>
 <p>The same way you add targets dynamically to the <a href="https://github.com/InjectionSoftwareDevelopment/Propane/blob/master/doc/markdown/propane_config.md">Propane Configuration</a> is also how you do so for the template you just edit the file.</p>
 <p>In fact if you add a TARGET to the config file, you HAVE to add it the template in order for it to appear.</p>
