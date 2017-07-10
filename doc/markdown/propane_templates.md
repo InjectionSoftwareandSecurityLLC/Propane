@@ -41,60 +41,76 @@ That is all you really need in order to customize the template. Below is an exam
 
 ```HTML
 
-<div class="content-section-a">
-  <div class="container">
-    <div class="row">
-      <div class="col-lg-12">
-        <h2>Scores</h1>
-        <div class="table-responsive">
-      <table class="table">
-        <tr>
-          <td valign="top" align="center">
-            <LINUX>
-          </td>
-          <td valign="top" align="center">
-            <WINDOOS>
-          </td>
-          <td valign="top" align="center">
-            <TOTAL>
-          </td>
-        </tr>
-      </table>
-      </div>
-    </div>
-  </div>
-</div>
+
+	<div class="content-section-a">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-12">
+					<h2>Scores</h1>
+				<div class="row">
+					
+						<div class="col-md-3 col-xs-6">
+							<LINUX>
+						</div>			
+						<div class="col-md-3 col-xs-6">
+							<WINDOOS>
+						</div>				
+						<div class="col-md-3 col-xs-6">
+							<MS3>
+						</div>					
+						<div class="col-md-3 col-xs-6">
+							<WEBSERVER>
+						</div>
+
+				</div>
+	       <div class="row">
+					<div class="col-md-12">
+						<TOTAL>
+					</div>
+				</div>
+				</div>
+			</div>
+		</div>
+	</div>
 </div>
 ```
 
 ### After
 ```HTML
-<div class="content-section-a">
-  <div class="container">
-    <div class="row">
-      <div class="col-lg-12">
-        <h2>Scores</h1>
-        <div class="table-responsive">
-      <table class="table">
-        <tr>
-          <td valign="top" align="center">
-            <LINUX>
-          </td>
-          <td valign="top" align="center">
-            <WINDOOS>
-          </td>
-          <td valign="top" align="center">
-            <SUPERCOOLVULNBOX>
-          </td>
-          <td valign="top" align="center">
-            <TOTAL>
-          </td>
-        </tr>
-      </table>
-      </div>
-    </div>
-  </div>
-</div>
+
+	<div class="content-section-a">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-12">
+					<h2>Scores</h1>
+				<div class="row">
+						<div class="col-md-3 col-xs-6">
+							<LINUX>
+						</div>			
+						<div class="col-md-3 col-xs-6">
+							<WINDOOS>
+						</div>				
+						<div class="col-md-3 col-xs-6">
+							<MS3>
+						</div>					
+						<div class="col-md-3 col-xs-6">
+							<WEBSERVER>
+						</div>
+				</div>
+        	<div class="row">
+						<div class="col-md-3 col-xs-6">
+							<SUPERCOOLVULNBOX>
+						</div>			
+				</div>
+	      <div class="row">
+					<div class="col-md-12">
+						<TOTAL>
+					</div>
+				</div>
+				</div>
+			</div>
+		</div>
+	</div>
 </div>
 ```
 

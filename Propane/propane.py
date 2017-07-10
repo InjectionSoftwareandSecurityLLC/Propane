@@ -151,7 +151,7 @@ def reloadScoreBoard(server):
         try:
             serverscoressection = server[0]+"Scores"
             serverscores = scores.items(serverscoressection)
-            tableresults = "<div class=\"table-responsive\" id=\"" + server[0] + "\">"
+            tableresults = "<div class=\"col-md-12\" id=\"" + server[0] + "\">"
             tableresults = tableresults + "<table class=\"table\" border=\"2\">\n<tr>"
             tableresults = tableresults + "<td colspan=\"2\"><center><h3>" +(server[0]).title() + "</h3><br>"
             if((server[0]).title() != "Total"):
