@@ -97,7 +97,7 @@ score():
 '''
 
 def score(whiteList):
-        scoresfile = scores.read("propane_scores.txt")
+        scoresFile = scores.read("propane_scores.txt")
         for server in serversToCheck:
             try:
                 print(bcolors.GREEN + bcolors.BOLD + "Checking Server: " + bcolors.RED + server[0] + bcolors.ENDC + " @ " + bcolors.BOLD + server[1] + bcolors.ENDC)
@@ -106,35 +106,35 @@ def score(whiteList):
                 html = url.read()
                 team = re.search('<team>(.*)</team>', str(html), re.IGNORECASE).group(1).strip().replace("=","").replace("<","").replace(">","")
                 print(bcolors.BOLD + "Server " + server[0] + bcolors.ENDC + " pwned by " + bcolors.RED + team + bcolors.ENDC)
-                serverscoressection = server[0]+"Scores"
+                serverScoresection = server[0]+"Scores"
 
                 if whiteListIsOn:
                     if team in whiteList:
                         if not scores.has_option("TotalScores", team):
                             scores.set("TotalScores", team, 0)
-                        currentscore = scores.getint( "TotalScores",team)
-                        scores.set( "TotalScores", team, currentscore+1)
-                        if not scores.has_option(serverscoressection, team):
-                            scores.set(serverscoressection, team, 0)
-                        currentscore = scores.getint( serverscoressection,team)
-                        scores.set( serverscoressection, team, currentscore+1)
+                        currentScore = scores.getint( "TotalScores",team)
+                        scores.set( "TotalScores", team, currentScore+1)
+                        if not scores.has_option(serverScoresection, team):
+                            scores.set(serverScoresection, team, 0)
+                        currentScore = scores.getint( serverScoresection,team)
+                        scores.set( serverScoresection, team, currentScore+1)
                     else:
-                        print(bcolors.FAIL + bcolors.BOLD + "User: " + team + " not in white list. Score was not updated" + bcolors.ENDC)
+                        print(bcolors.FAIL + bcolors.BOLD + "User: " + team + " not in white list! Score was not updated." + bcolors.ENDC)
                 else:
                     if not scores.has_option("TotalScores", team):
                         scores.set("TotalScores", team, 0)
-                    currentscore = scores.getint( "TotalScores",team)
-                    scores.set( "TotalScores", team, currentscore+1)
-                    if not scores.has_option(serverscoressection, team):
-                        scores.set(serverscoressection, team, 0)
-                    currentscore = scores.getint( serverscoressection,team)
-                    scores.set( serverscoressection, team, currentscore+1)
+                    currentScore = scores.getint( "TotalScores",team)
+                    scores.set( "TotalScores", team, currentScore+1)
+                    if not scores.has_option(serverScoresection, team):
+                        scores.set(serverScoresection, team, 0)
+                    currentScore = scores.getint( serverScoresection,team)
+                    scores.set( serverScoresection, team, currentScore+1)
             except IOError:
                 print(bcolors.FAIL + bcolors.BOLD + server[0] + bcolors.ENDC + " @ " + bcolors.FAIL + bcolors.BOLD + server[1] + bcolors.ENDC + " might be down, skipping it")
             except AttributeError:
                 print(bcolors.BOLD + "Server " + bcolors.RED + server[0] + bcolors.ENDC + " might not be " + bcolors.RED + "pwned " + bcolors.ENDC + "yet")
-        with open("propane_scores.txt", 'w') as scoresfile:
-                scores.write(scoresfile)
+        with open("propane_scores.txt", 'w') as scoresFile:
+                scores.write(scoresFile)
 
 '''
 initScoreFile():
@@ -145,14 +145,14 @@ initScoreFile():
 
 
 def initScoreFile():
-        scoresfile = scores.read("propane_scores.txt")
+        scoresFile = scores.read("propane_scores.txt")
         if not scores.has_section("TotalScores"):
                 scores.add_section("TotalScores")
 
         for server in serversToCheck:
-                serverscoressection = server[0]+"Scores"
-                if not scores.has_section(serverscoressection):
-                        scores.add_section(serverscoressection)
+                serverScoresection = server[0]+"Scores"
+                if not scores.has_section(serverScoresection):
+                        scores.add_section(serverScoresection)
 
 
 '''
@@ -168,24 +168,24 @@ def reloadScoreBoard(server):
         print(bcolors.BLUE + bcolors.BOLD + "Reloading Scoreboard for: " + bcolors.ENDC + bcolors.BOLD + server[0] + bcolors.ENDC)
         try:
 
-            serverscoressection = server[0]+"Scores"
-            serverscores = scores.items(serverscoressection)
+            serverScoresection = server[0]+"Scores"
+            serverScores = scores.items(serverScoresection)
 
-            tableresults = "<div class=\"col-md-12\" id=\"" + server[0] + "\">"
-            tableresults = tableresults + "<table class=\"table\" border=\"2\">\n<tr>"
-            tableresults = tableresults + "<td colspan=\"2\"><center><h3>" +(server[0]).title() + "</h3><br>"
+            tableResults = "<div class=\"col-md-12\" id=\"" + server[0] + "\">"
+            tableResults = tableResults + "<table class=\"table\" border=\"2\">\n<tr>"
+            tableResults = tableResults + "<td colspan=\"2\"><center><h3>" +(server[0]).title() + "</h3><br>"
             if((server[0]).title() != "Total"):
-                    tableresults = tableresults + "<hr style=\"border-top: 1px solid #000;\"/><h4>Server: <a href=\"" + server[1] + "\">" + server[1]  +"</a></h4>"
-            tableresults = tableresults + "</center></td></tr>\n"
-            serverscores.sort(key=lambda score: -int(score[1]))
-            toptagstart="<div class=\"topscore\">"
-            toptagend="</div>"
-            for team in serverscores:
-                tableresults = tableresults + "<tr><td>" + toptagstart + team[0].title() + toptagend + "</td><td>" + toptagstart + str(team[1]) +  toptagend  + "</td></tr>\n"
-                toptagstart="<div class=\"otherscore\">"
-                toptagend="</div>"
-            tableresults = tableresults + "</table></div>"
-            return tableresults
+                    tableResults = tableResults + "<hr style=\"border-top: 1px solid #000;\"/><h4>Server: <a href=\"" + server[1] + "\">" + server[1]  +"</a></h4>"
+            tableResults = tableResults + "</center></td></tr>\n"
+            serverScores.sort(key=lambda score: -int(score[1]))
+            topTagStart="<div class=\"topscore\">"
+            topTagEnd="</div>"
+            for team in serverScores:
+                tableResults = tableResults + "<tr><td>" + topTagStart + team[0].title() + topTagEnd + "</td><td>" + topTagStart + str(team[1]) +  topTagEnd  + "</td></tr>\n"
+                topTagStart="<div class=\"otherscore\">"
+                topTagEnd="</div>"
+            tableResults = tableResults + "</table></div>"
+            return tableResults
         except:
             print(bcolors.FAIL + bcolors.BOLD + "No section for " + server[0] + " (check your template for errors)" + bcolors.ENDC)
 
@@ -246,20 +246,20 @@ def main():
                
 
                 for server in serversToCheck:
-                    thistable = reloadScoreBoard(server)
-                    serverlabeltag=("<" + server[0] + ">").upper()
-                    print(bcolors.GREEN + bcolors.BOLD + "Updating " + bcolors.ENDC + bcolors.BOLD + serverlabeltag + bcolors.ENDC + " tag in the template")
-                    scorePage = scorePage.replace(serverlabeltag,thistable)
+                    thisTable = reloadScoreBoard(server)
+                    serverLabelTag=("<" + server[0] + ">").upper()
+                    print(bcolors.GREEN + bcolors.BOLD + "Updating " + bcolors.ENDC + bcolors.BOLD + serverLabelTag + bcolors.ENDC + " tag in the template")
+                    scorePage = scorePage.replace(serverLabelTag,thisTable)
                 # Update Total Scores on Scoreboard
-                thistable = reloadScoreBoard(["Total",""])
-                serverlabeltag=("<TOTAL>").upper()
-                print(bcolors.GREEN + bcolors.BOLD + "Updating " + bcolors.ENDC + bcolors.BOLD + serverlabeltag + bcolors.ENDC + " tag in the template")
-                scorePage = scorePage.replace(serverlabeltag,thistable)
+                thisTable = reloadScoreBoard(["Total",""])
+                serverLabelTag=("<TOTAL>").upper()
+                print(bcolors.GREEN + bcolors.BOLD + "Updating " + bcolors.ENDC + bcolors.BOLD + serverLabelTag + bcolors.ENDC + " tag in the template")
+                scorePage = scorePage.replace(serverLabelTag,thisTable)
                 # Write out the updates made to the Scoreboard and get ready for next interval
                 print(bcolors.BLUE + bcolors.BOLD + "Updating Scoreboard " + bcolors.ENDC + bcolors.BOLD + outfile + bcolors.ENDC)
-                outfilehandle = open(outfile, 'w')
-                outfilehandle.write(scorePage)
-                outfilehandle.close()
+                outFileHandler = open(outfile, 'w')
+                outFileHandler.write(scorePage)
+                outFileHandler.close()
                 print(bcolors.CYAN + bcolors.BOLD + "Next update in: " + bcolors.ENDC + str(sleepTime) + bcolors.BOLD + " second(s)" + bcolors.ENDC)
                 time.sleep(sleepTime)
 
