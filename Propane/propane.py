@@ -11,6 +11,7 @@ distutils.dir_util (copy_tree): Used to load templates. Automatically creates an
                                 directory set in the propane_config file
 os: Currently only used for removing uneeded template files generated on initialization.
     Used to make general OS calls as needed.
+csv: used for parsing comma delimited lists for the White and Black Lists.
 
 """
 import urllib.request
@@ -46,6 +47,8 @@ scores: Initialize the parser that will be used to parse the propane_scores file
 configFile: Initialize global string where the path to the propane_config will be stored.
 serversToCheck: Initialize global where the parsed data about the Servers from the propane_config will be stored.
                 (Initialized as string, but will be used as a list)
+whiteListInit: Initialize the white list global value that will be used to store the users option from the WhiteList section.
+blackListInit: Initialize the black list global value that will be used to store the users option from the BlackList section.
 sleeptTime: Initialize global that will store the delay interval that is parsed from propane_config.
             (Initialized as string, but will be used as a number)
 outfile: Initialize global string that will store the desired location and name of the main scoreboard output file.
@@ -71,7 +74,8 @@ gameSetup = True
 '''
 loadConfig():
     Loads and parses the propane_config file.
-    Loads the globals "configFile, serversToCheck, sleepTime, outfile, outdir" from the config file to use later on.
+    Loads the globals "configFile, serversToCheck, whiteListInit, blackListInit, sleepTime, outfile, outdir, whiteListIsOn, blackListIsOn" 
+    from the config file to use later on.
 '''
 
 
@@ -97,6 +101,8 @@ score():
     Writes the new score data to the propane_scores file.
     If server is not found, and error message displays in console.
     If no one owns the box scanned, then no points are awarded.
+    If black list feature is on, then users in the black list are flagged in the output and no score is awarded.
+    If white list is feature is on, then users not in the white list are flagged in the output and no score is awarded.
 '''
 
 def score(whiteList, blackList):
@@ -223,7 +229,7 @@ main():
     Propane main function. Runs the loadConfig(), initScoreFile() functions and then setups up the scoreboard web pages
     by writing them and copying the templates to the directories specified in the propane_config.
 
-    This is an endless loop that constantly scores users, reloads the scoreboard, and error corrects itself as needed in
+    This is an endless loop that constantly scores users, reloads the scoreboard, parses white and black lists, and error corrects itself as needed in
     some cases (e.g. initScoreFile())
 
     By placing the loadConfig(), initScoreFile(), and score() functions in the loop to run everytime, an administrator can
@@ -265,7 +271,7 @@ def main():
                     parseBlackList = csv.reader([user[1]])
                     for user in parseBlackList:
                         blackList = user
-                        
+
                 # Do some scoring!
                 score(whiteList, blackList)
 

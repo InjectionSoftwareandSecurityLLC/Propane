@@ -2,7 +2,7 @@
 
 The Propane White and Black Lists are exactly what they sound like. These list allow you to block or explicitly allow specific team tags.
 
-*The Black List is currently a WIP, when it is finished both the White and Black Lists will be usable at the same time if desired*
+Both White and Black List features can be used simultaneously if desired (although there is not much point if you simply remove a user from one list or the other).
 
 ## White List
 
@@ -18,6 +18,7 @@ outfile = changeme/index.html
 outdir = changeme/
 sleeptime = 60
 whiteListOn = false
+blackListOn = false
 
 [Targets]
 linux = http://192.168.2.24/index.html
@@ -27,6 +28,9 @@ webserver = http://192.168.2.24/prop.html
 
 [WhiteList]
 users = nate,myntal,clamsec
+
+[BlackList]
+users = 3ndG4me
 ```
 
 
@@ -38,6 +42,7 @@ outfile = changeme/index.html
 outdir = changeme/
 sleeptime = 60
 whiteListOn = true
+blackListOn = false
 
 [Targets]
 linux = http://192.168.2.24/index.html
@@ -47,6 +52,9 @@ webserver = http://192.168.2.24/prop.html
 
 [WhiteList]
 users = nate,myntal,clamsec
+
+[BlackList]
+users = 3ndG4me
 ```
 
 
@@ -67,6 +75,7 @@ outfile = changeme/index.html
 outdir = changeme/
 sleeptime = 60
 whiteListOn = true
+blackListOn = false
 
 [Targets]
 linux = http://192.168.2.24/index.html
@@ -75,6 +84,9 @@ ms3 = http://192.168.2.24/homepage.html
 webserver = http://192.168.2.24/prop.html
 
 [WhiteList]
+users = 
+
+[BlackList]
 users = 
 ```
 
@@ -85,7 +97,8 @@ users =
 outfile = changeme/index.html
 outdir = changeme/
 sleeptime = 60
-whiteListOn = false
+whiteListOn = true
+blackListOn = false
 
 [Targets]
 linux = http://192.168.2.24/index.html
@@ -94,5 +107,117 @@ ms3 = http://192.168.2.24/homepage.html
 webserver = http://192.168.2.24/prop.html
 
 [WhiteList]
-users = nate,myntal,clamsec,3ndG4me
+users = nate,myntal,clamsec
+
+[BlackList]
+users = 
+```
+
+
+## Black List
+
+Much like the White List using the Black List is extremely simple. In the `propane_config.ini` two new configuration options have been added. One is the `blackListOn` option, and the other is the `[BlackList]` section itself which contains a `users` option.
+
+To use the Black List simple set the `blackListOn` option to *true*:
+
+
+### Before
+
+```
+[General]
+outfile = changeme/index.html
+outdir = changeme/
+sleeptime = 60
+whiteListOn = false
+blackListOn = false
+
+[Targets]
+linux = http://192.168.2.24/index.html
+windoos = http://192.168.2.24/test.html
+ms3 = http://192.168.2.24/homepage.html
+webserver = http://192.168.2.24/prop.html
+
+[WhiteList]
+users = nate,myntal,clamsec
+
+[BlackList]
+users = 3ndG4me
+```
+
+
+### After
+
+```
+[General]
+outfile = changeme/index.html
+outdir = changeme/
+sleeptime = 60
+whiteListOn = false
+blackListOn = true
+
+[Targets]
+linux = http://192.168.2.24/index.html
+windoos = http://192.168.2.24/test.html
+ms3 = http://192.168.2.24/homepage.html
+webserver = http://192.168.2.24/prop.html
+
+[WhiteList]
+users = nate,myntal,clamsec
+
+[BlackList]
+users = 3ndG4me
+```
+
+To add users to the Black List simply add a team tag in comma delimited format (see the example below).
+The best use for this feature is to ban troublesome users while a competition is running.
+
+This isn't full proof as a user could simply continue playing with a new team tag leading to a game of "whack-a-mole", but doing this combined with a score removal makes for a pretty effective punishment.
+
+
+Example:
+
+### Before (no users)
+
+```
+[General]
+outfile = changeme/index.html
+outdir = changeme/
+sleeptime = 60
+whiteListOn = true
+blackListOn = false
+
+[Targets]
+linux = http://192.168.2.24/index.html
+windoos = http://192.168.2.24/test.html
+ms3 = http://192.168.2.24/homepage.html
+webserver = http://192.168.2.24/prop.html
+
+[WhiteList]
+users = 
+
+[BlackList]
+users = 
+```
+
+### After
+
+```
+[General]
+outfile = changeme/index.html
+outdir = changeme/
+sleeptime = 60
+whiteListOn = true
+blackListOn = false
+
+[Targets]
+linux = http://192.168.2.24/index.html
+windoos = http://192.168.2.24/test.html
+ms3 = http://192.168.2.24/homepage.html
+webserver = http://192.168.2.24/prop.html
+
+[WhiteList]
+users = 
+
+[BlackList]
+users = 3ndG4me, nate, myntal, clamsec
 ```
