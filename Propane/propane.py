@@ -61,6 +61,7 @@ scores = configparser.RawConfigParser()
 configFile = ""
 serversToCheck = ""
 whiteListInit = ""
+blackListInit = ""
 sleepTime = ""
 outfile = ""
 outdir = ""
@@ -76,14 +77,16 @@ loadConfig():
 
 def loadConfig():
         print(bcolors.CYAN + bcolors.BOLD + "Loading Configurations" + bcolors.ENDC)
-        global configFile, serversToCheck, whiteListInit, sleepTime, outfile, outdir, whiteListIsOn
+        global configFile, serversToCheck, whiteListInit, blackListInit, sleepTime, outfile, outdir, whiteListIsOn, blackListIsOn
         configFile = config.read("propane_config.ini")
         serversToCheck = config.items("Targets")
         whiteListInit = config.items("WhiteList")
+        blackListInit = config.items("BlackList")
         sleepTime = config.getint("General", "sleepTime")
         outfile = config.get("General", "outfile")
         outdir = config.get("General", "outdir")
         whiteListIsOn = config.getboolean("General", "whiteListOn")
+        blackListIsOn = config.getboolean("General", "blackListOn")
 
 '''
 score():
@@ -96,7 +99,7 @@ score():
     If no one owns the box scanned, then no points are awarded.
 '''
 
-def score(whiteList):
+def score(whiteList, blackList):
         scoresFile = scores.read("propane_scores.txt")
         for server in serversToCheck:
             try:
@@ -108,7 +111,7 @@ def score(whiteList):
                 print(bcolors.BOLD + "Server " + server[0] + bcolors.ENDC + " pwned by " + bcolors.RED + team + bcolors.ENDC)
                 serverScoresection = server[0]+"Scores"
 
-                if whiteListIsOn:
+                if whiteListIsOn and not blackListIsOn:
                     if team in whiteList:
                         if not scores.has_option("TotalScores", team):
                             scores.set("TotalScores", team, 0)
@@ -119,7 +122,33 @@ def score(whiteList):
                         currentScore = scores.getint( serverScoresection,team)
                         scores.set( serverScoresection, team, currentScore+1)
                     else:
-                        print(bcolors.FAIL + bcolors.BOLD + "User: " + team + " not in white list! Score was not updated." + bcolors.ENDC)
+                        print(bcolors.FAIL + bcolors.BOLD + "User: " + team + " not in the white list! Score was not updated." + bcolors.ENDC)
+                elif blackListIsOn and not whiteListIsOn:
+                    if team in blackList:
+                         print(bcolors.FAIL + bcolors.BOLD + "User: " + team + " is in the black list! Score was not updated." + bcolors.ENDC)
+                    else:
+                        if not scores.has_option("TotalScores", team):
+                            scores.set("TotalScores", team, 0)
+                        currentScore = scores.getint( "TotalScores",team)
+                        scores.set( "TotalScores", team, currentScore+1)
+                        if not scores.has_option(serverScoresection, team):
+                            scores.set(serverScoresection, team, 0)
+                        currentScore = scores.getint( serverScoresection,team)
+                        scores.set( serverScoresection, team, currentScore+1)
+                elif whiteListIsOn and blackListIsOn:
+                    if team in blackList:
+                         print(bcolors.FAIL + bcolors.BOLD + "User: " + team + " is in the black list! Score was not updated." + bcolors.ENDC)
+                    elif team in whiteList:
+                        if not scores.has_option("TotalScores", team):
+                            scores.set("TotalScores", team, 0)
+                        currentScore = scores.getint( "TotalScores",team)
+                        scores.set( "TotalScores", team, currentScore+1)
+                        if not scores.has_option(serverScoresection, team):
+                            scores.set(serverScoresection, team, 0)
+                        currentScore = scores.getint( serverScoresection,team)
+                        scores.set( serverScoresection, team, currentScore+1)
+                    else:
+                         print(bcolors.FAIL + bcolors.BOLD + "User: " + team + " not in the white list! Score was not updated." + bcolors.ENDC)
                 else:
                     if not scores.has_option("TotalScores", team):
                         scores.set("TotalScores", team, 0)
@@ -230,8 +259,15 @@ def main():
                     for user in parseWhiteList:
                         whiteList = user
                 
+                blackList = ""
+
+                for user in blackListInit:
+                    parseBlackList = csv.reader([user[1]])
+                    for user in parseBlackList:
+                        blackList = user
+                        
                 # Do some scoring!
-                score(whiteList)
+                score(whiteList, blackList)
 
                 # Do one-time set up stuff on start of the game
                 if(gameSetup):
