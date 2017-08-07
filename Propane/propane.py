@@ -21,6 +21,7 @@ import time
 from distutils.dir_util import copy_tree
 import os
 import csv
+import imp
 
 
 # Colors for terminal output. Makes things pretty.
@@ -69,7 +70,8 @@ sleepTime = ""
 outfile = ""
 outdir = ""
 gameSetup = True
-
+PropAccDir = "./PropAcc"
+PropAccModule = "__init__"
 
 '''
 loadConfig():
@@ -91,6 +93,22 @@ def loadConfig():
         outdir = config.get("General", "outdir")
         whiteListIsOn = config.getboolean("General", "whiteListOn")
         blackListIsOn = config.getboolean("General", "blackListOn")
+
+def loadPropAcc():
+    
+    propaccs = []
+    possibleplugins = os.listdir(PropAccDir)
+    for i in possibleplugins:
+        location = os.path.join(PropAccDir, i)
+        if not os.path.isdir(location) or not PropAccModule + ".py" in os.listdir(location):
+            continue
+        info = imp.find_module(PropAccModule, [location])
+        propaccs.append({"name": i, "info": info})
+    return propaccs
+
+def initPropAcc(propacc):
+    return imp.load_module(PropAccModule, *propacc["info"])
+
 
 '''
 score():
@@ -282,11 +300,13 @@ def main():
                         os.remove(outdir + "template.html")
                         gameSetup = False
 
+                for i in loadPropAcc():
+                    print("Loading Propane Accessory: " + i["name"])
+                    propacc = initPropAcc(i)
+                    propacc.run()
+
                 # Update Server Scores on Scoreboard
-
-
                
-
                 for server in serversToCheck:
                     thisTable = reloadScoreBoard(server)
                     serverLabelTag=("<" + server[0] + ">").upper()
