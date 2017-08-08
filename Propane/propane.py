@@ -73,6 +73,7 @@ blackListInit = ""
 sleepTime = ""
 outfile = ""
 outdir = ""
+startTime = ""
 gameSetup = True
 PropAccDir = "./PropAcc"
 PropAccModule = "__init__"
@@ -87,7 +88,7 @@ loadConfig():
 
 def loadConfig():
         print(bcolors.CYAN + bcolors.BOLD + "Loading Configurations" + bcolors.ENDC)
-        global configFile, serversToCheck, whiteListInit, blackListInit, sleepTime, outfile, outdir, whiteListIsOn, blackListIsOn, enablePropAcc
+        global configFile, serversToCheck, whiteListInit, blackListInit, sleepTime, outfile, outdir, startTime, whiteListIsOn, blackListIsOn, enablePropAcc
         configFile = config.read("propane_config.ini")
         serversToCheck = config.items("Targets")
         whiteListInit = config.items("WhiteList")
@@ -95,6 +96,7 @@ def loadConfig():
         sleepTime = config.getint("General", "sleepTime")
         outfile = config.get("General", "outfile")
         outdir = config.get("General", "outdir")
+        startTime = config.get("General", "starttime")
         whiteListIsOn = config.getboolean("General", "whiteListOn")
         blackListIsOn = config.getboolean("General", "blackListOn")
         enablePropAcc = config.getboolean("General", "EnablePropAcc")
@@ -285,17 +287,6 @@ def main():
 
         global gameSetup
 
-        currentTime = datetime.now()
-
-        currentTimeStr = str(currentTime.hour) + ":" + str(currentTime.minute)
-
-        startTime = "21:22"
-        while startTime:
-            currentTime = datetime.now()
-            currentTimeStr = str(currentTime.hour) + ":" + str(currentTime.minute)
-            print(currentTimeStr)
-            if currentTimeStr == startTime:
-                break
 
         while True:
 
@@ -323,18 +314,35 @@ def main():
                     for user in parseBlackList:
                         blackList = user
 
-                # Do some scoring!
-                score(whiteList, blackList)
+               
 
                 # Do one-time set up stuff on start of the game
                 if(gameSetup):
                         print(bcolors.CYAN + bcolors.BOLD + "Game Setup: " + bcolors.ENDC + " copying template files")
                         copy_tree("template", outdir)
                         os.remove(outdir + "template.html")
+
+                        if startTime:
+                            currentTime = datetime.now()
+
+                            startHour = int(startTime.split(":")[0])
+                            startMinute = int(startTime.split(":")[1])
+                        
+                            formattedStartTime = currentTime.replace(day=currentTime.day, hour=startHour, minute=startMinute, microsecond=currentTime.microsecond)
+
+                            timeDelta = formattedStartTime - currentTime
+
+                            print(bcolors.GREEN + bcolors.BOLD + "Propane will start at: " + str(formattedStartTime) + bcolors.ENDC)
+                            time.sleep(timeDelta.seconds)
+
+
+
                         gameSetup = False
+                        
+                # Do some scoring!
+                score(whiteList, blackList)
 
                 #Load Propane Accessories and run their start() function
-                
                 if enablePropAcc:
                     for i in loadPropAcc():
                         print(bcolors.CYAN + bcolors.BOLD + "Loading Propane Accessory: " + bcolors.ENDC + bcolors.BOLD + i["name"] + bcolors.ENDC)
