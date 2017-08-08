@@ -1,0 +1,10 @@
+[TotalScores]
+
+[linuxScores]
+
+[windoosScores]
+
+[ms3Scores]
+
+[webserverScores]
+

@@ -23,6 +23,7 @@ from distutils.dir_util import copy_tree
 import os
 import csv
 import imp
+from datetime import datetime
 
 
 # Colors for terminal output. Makes things pretty.
@@ -283,6 +284,18 @@ main():
 def main():
 
         global gameSetup
+
+        currentTime = datetime.now()
+
+        currentTimeStr = str(currentTime.hour) + ":" + str(currentTime.minute)
+
+        startTime = "21:22"
+        while startTime:
+            currentTime = datetime.now()
+            currentTimeStr = str(currentTime.hour) + ":" + str(currentTime.minute)
+            print(currentTimeStr)
+            if currentTimeStr == startTime:
+                break
 
         while True:
 
