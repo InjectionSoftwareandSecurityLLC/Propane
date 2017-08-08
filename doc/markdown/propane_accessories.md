@@ -103,6 +103,6 @@ Now for the code. Every PropAcc must contain an `__init__.py` file like so:
 
 ```
 
-DONE! You can literally write anything you want, and your module will be loaded up and executed as Propane runs. If you want to write to the score file, or maybe update target machines or change configurations dynamically you have access to all of those things. All it takes is some simple directory traversal and looking at the main source for Propane and modifying it to your liking.
+DONE! You can literally write anything you want, and your module will be loaded up and executed as Propane runs. If you want to write to the score file, or maybe update target machines or change configurations dynamically you have access to all of those things. All it takes is some simple directory traversal and looking at the main source for Propane, modifying it inside your plugin.
 
 More example Propane Accessories will be provided over in our [PropaneAccessories](https://github.com/InjectionSoftwareDevelopment/PropaneAccessories) github repo.
