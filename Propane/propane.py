@@ -269,7 +269,7 @@ def reloadScoreBoard(server):
 
 def endGame():
 
-    print(bcolors.YELLOW + bcolors.BOLD + "Propane has ended!" + bcolors.ENDC)
+    print(bcolors.YELLOW + bcolors.BOLD + "Propane has ended at: " + str(datetime.now()) + bcolors.ENDC)
 
     os._exit(0)
 
@@ -358,7 +358,7 @@ def main():
 
                             endTimer = Timer(timeDelta.seconds, endGame)
 
-                            print(bcolors.RED + bcolors.BOLD + "Propane will end at: " + str(formattedEndTime) + bcolors.ENDC)
+                            print(bcolors.YELLOW + bcolors.BOLD + "Propane will end at: " + str(formattedEndTime) + bcolors.ENDC)
 
                             endTimer.start()
 
