@@ -24,6 +24,7 @@ import os
 import csv
 import imp
 from datetime import datetime
+from threading import Timer
 
 
 # Colors for terminal output. Makes things pretty.
@@ -74,6 +75,7 @@ sleepTime = ""
 outfile = ""
 outdir = ""
 startTime = ""
+endTime = ""
 gameSetup = True
 PropAccDir = "./PropAcc"
 PropAccModule = "__init__"
@@ -88,7 +90,7 @@ loadConfig():
 
 def loadConfig():
         print(bcolors.CYAN + bcolors.BOLD + "Loading Configurations" + bcolors.ENDC)
-        global configFile, serversToCheck, whiteListInit, blackListInit, sleepTime, outfile, outdir, startTime, whiteListIsOn, blackListIsOn, enablePropAcc
+        global configFile, serversToCheck, whiteListInit, blackListInit, sleepTime, outfile, outdir, startTime, endTime, whiteListIsOn, blackListIsOn, enablePropAcc
         configFile = config.read("propane_config.ini")
         serversToCheck = config.items("Targets")
         whiteListInit = config.items("WhiteList")
@@ -97,6 +99,7 @@ def loadConfig():
         outfile = config.get("General", "outfile")
         outdir = config.get("General", "outdir")
         startTime = config.get("General", "starttime")
+        endTime = config.get("General", "endtime")
         whiteListIsOn = config.getboolean("General", "whiteListOn")
         blackListIsOn = config.getboolean("General", "blackListOn")
         enablePropAcc = config.getboolean("General", "EnablePropAcc")
@@ -263,6 +266,14 @@ def reloadScoreBoard(server):
         except:
             print(bcolors.FAIL + bcolors.BOLD + "No section for " + server[0] + " (check your template for errors)" + bcolors.ENDC)
 
+
+def endGame():
+
+    print(bcolors.YELLOW + bcolors.BOLD + "Propane has ended!" + bcolors.ENDC)
+
+    os._exit(0)
+
+
 '''
 main():
     Propane main function. Runs the loadConfig(), initScoreFile() functions and then setups up the scoreboard web pages
@@ -335,7 +346,21 @@ def main():
                             print(bcolors.GREEN + bcolors.BOLD + "Propane will start at: " + str(formattedStartTime) + bcolors.ENDC)
                             time.sleep(timeDelta.seconds)
 
+                        if endTime:
+                            currentTime = datetime.now()
 
+                            endHour = int(endTime.split(":")[0])
+                            endMinute = int(endTime.split(":")[1])
+
+                            formattedEndTime = currentTime.replace(day=currentTime.day, hour=endHour, minute=endMinute, microsecond=currentTime.microsecond)
+
+                            timeDelta = formattedEndTime - currentTime
+
+                            endTimer = Timer(timeDelta.seconds, endGame)
+
+                            print(bcolors.RED + bcolors.BOLD + "Propane will end at: " + str(formattedEndTime) + bcolors.ENDC)
+
+                            endTimer.start()
 
                         gameSetup = False
                         
