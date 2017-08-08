@@ -5,3 +5,4 @@
 ## 3.  [Propane Templates](https://github.com/InjectionSoftwareDevelopment/Propane/blob/master/doc/markdown/propane_templates.md)
 ## 4.  [Propane Scores](https://github.com/InjectionSoftwareDevelopment/Propane/blob/master/doc/markdown/propane_scores.md)
 ## 5.  [Propane White/Black List](https://github.com/InjectionSoftwareDevelopment/Propane/blob/master/doc/markdown/propane_white_black_lists.md)
+## 6. [Propane Accessories](https://github.com/InjectionSoftwareDevelopment/Propane/blob/master/doc/markdown/propane_accessories.md)
