@@ -13,6 +13,9 @@ os: Currently only used for removing uneeded template files generated on initial
     Used to make general OS calls as needed.
 csv: used for parsing comma delimited lists for the White and Black Lists.
 imp: used for importing plugins (Propane Accessories)
+datetime: used for scheduling games using a start/end time
+thread (Timer): The Timer is used to spawn a thread that will end the game 
+                once deltaTime value generated from the endtime in the config reaches 0.
 
 """
 import urllib.request
@@ -57,8 +60,10 @@ sleeptTime: Initialize global that will store the delay interval that is parsed 
             (Initialized as string, but will be used as a number)
 outfile: Initialize global string that will store the desired location and name of the main scoreboard output file.
          (usually /var/www/html/index.html or /var/www/index.html in Apache)
-outdir: Initialize the global string thaht will store the desired output location of the template.
+outdir: Initialize the global string that will store the desired output location of the template.
         This is usally the same directory as outfile, but without the outfile name (e.g. /var/www/).
+starttime: Initialize the global string that determines the start delay time for the main loop.
+endtime: Initialize the global string that determines the end delay time for the entire program.
 gameSetup: Initialize the global boolean that is used to test if this is the initial start up.
             This is used so that any set up is done only on the first iteration, but currently is
             only needed to load in the initial template.
@@ -83,7 +88,7 @@ PropAccModule = "__init__"
 '''
 loadConfig():
     Loads and parses the propane_config file.
-    Loads the globals "configFile, serversToCheck, whiteListInit, blackListInit, sleepTime, outfile, outdir, whiteListIsOn, blackListIsOn" 
+    Loads the globals "configFile, serversToCheck, whiteListInit, blackListInit, sleepTime, outfile, outdir, startTime, endTime, whiteListIsOn, blackListIsOn, enablePropAcc" 
     from the config file to use later on.
 '''
 
@@ -267,13 +272,26 @@ def reloadScoreBoard(server):
             print(bcolors.FAIL + bcolors.BOLD + "No section for " + server[0] + " (check your template for errors)" + bcolors.ENDC)
 
 
+'''
+getEndTime():
+    Calculates the time for left before the game needs to end based on the endtime value in the config file.
+    After calculating the timeDelta it will create a countdown.js file. This function is ran during game set up to spawn
+    a new Timer thread that will call the endGame() function when the countdown from the timeDelta reaches zero.
+
+    This function is also ran during every main loop iteration to update the countdown timer for the main scoreboard
+    that is generated with countdown.js.
+
+'''
+
 def getEndTime(gameSetup):
     currentTime = datetime.now()
     
-    endHour = int(endTime.split(":")[0])
+    try:
+        endHour = int(endTime.split(":")[0])
     
-    endMinute = int(endTime.split(":")[1])
-    
+        endMinute = int(endTime.split(":")[1])
+    except:
+        print(bcolors.FAIL + "The endtime in your config doesn't look like a valid 24 hour time format..." + bcolors.ENDC)
     formattedEndTime = currentTime.replace(day=currentTime.day, hour=endHour, minute=endMinute, microsecond=currentTime.microsecond)
 
     timeDelta = formattedEndTime - currentTime
@@ -299,11 +317,13 @@ def getEndTime(gameSetup):
                         
                          display.textContent = "Time Remaining: " + hours + ":" + minutes + ":" + seconds;
                         
-                        if(minutes <= 9){
-                            display.textContent = "FINAL COUTDOWN: " + hours + ":" + minutes + ":" + seconds;
-                            display.style.color = "red";
-                        }else if(minutes >= 10 && minutes <= 30){
-                            display.style.color = "orange";
+                        if(hours <= 0){
+                            if(minutes <= 9){
+                                display.textContent = "FINAL COUTDOWN: " + hours + ":" + minutes + ":" + seconds;
+                                display.style.color = "red";
+                            }else if(minutes >= 10 && minutes <= 30){
+                                display.style.color = "orange";
+                            }
                         }
                         
                         if (--timer < 0) {
@@ -321,6 +341,18 @@ def getEndTime(gameSetup):
     countdownJS = open(outdir + "countdown.js", "w+")
     countdownJS.write(timerJS)
     countdownJS.close()
+
+
+'''
+endGame():
+    3ndG4me r00lz!!!!!!
+
+    This function exits the Propane process, thus, ending the game. This is only called from the Timer thread
+    spawned by the getEndTime function when the game set up is first initialized. Once it is called a message
+    will output informing the admin that the game has ended, and then will immediately exit the thread and the
+    main process.
+
+'''
 
 def endGame():
 
@@ -344,6 +376,9 @@ main():
 
     The core functionality of the main is to run the entire scoreboard and connect all the pieces, and write them out to the
     scoreboard file that is specified by the outfile variable.
+
+    Any start or end time delays and their resulting effects (i.e. countdown timer on the scoreboard) are parsed and calculated.
+    Evey iteration the getEndTime will update the coutdown timer on the scoreboard.
 
     The delay interval set by the time value loaded into the time global variable determines how often the scoreboard executes
     its operations.
@@ -394,8 +429,11 @@ def main():
                         if startTime:
                             currentTime = datetime.now()
 
-                            startHour = int(startTime.split(":")[0])
-                            startMinute = int(startTime.split(":")[1])
+                            try:
+                                startHour = int(startTime.split(":")[0])
+                                startMinute = int(startTime.split(":")[1])
+                            except ValueError:
+                                print(bcolors.FAIL + "The starttime in your config doesn't look like a valid 24 hour time format..." + bcolors.ENDC)
                         
                             formattedStartTime = currentTime.replace(day=currentTime.day, hour=startHour, minute=startMinute, microsecond=currentTime.microsecond)
 
