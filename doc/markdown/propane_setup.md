@@ -24,11 +24,13 @@ We reccommend using Apache to host the scoreboard on whatever machine you are us
 `chmod +x setup.sh`
 `./setup.sh`
 
-During the setup you will be prompted to type the **PARENT** directory of the direcroy where your index file is located. If you want to do a more custome set up and know what you are doing then type whatever you want here, but depending on how apache is configured you will either want to type `/var/www/` or `/var/` here by default.
+During the setup you will be prompted to type the **PARENT** directory of the directory where your index file is located. If you want to do a more custom set up and know what you are doing then type whatever path you want here, but depending on how apache is configured you will either want to type `/var/www/` or `/var/` here by default.
 
 If your apache server is configured to point at a directory called `html` then you will want to install Propane to `/var/www`. If it is configured to `www` then you may want to install it to `/var/`. The same logic can be applied to wherever you server is pointing too.
 
 EX: If your index.html is stored in `/foo/bar/wham`. Then you'll want to install Propane to `/foo/bar`.
+
+You can choose to install Propane in the same directory as you index file, but this is not reccommended because you might make the core scoring engine readable by whoever visits the web page. While this isn't a HUGE issue, since Propane is open source, it might become an issue if you are using white/black list, or maybe a custom [Propane Accessory](https://github.com/InjectionSoftwareDevelopment/Propane/blob/master/doc/markdown/propane_accessories.md) because the user might be able to locate these files and find a way to trick your custom plugin or spoof the white/black lists.
 
 After typing in your desired install directory, Propane will automatically install itself for you. From there you will need to follow steps 5, 6, and 7 from the manual installation guide to finish your set up.
 
