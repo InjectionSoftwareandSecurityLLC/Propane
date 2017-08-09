@@ -105,7 +105,7 @@ users = 3ndG4me
 
 ```
 
-If you specify and `endtime` a countdown will appear on the main scoreboard informing players how much time is left in the compeition. There is a slight delay when between time updates depending on the scoreboard refresh interval you set, but regardless the game will end at exactly the time you specified.
+If you specify an `endtime` a countdown will appear on the main scoreboard informing players how much time is left in the compeition. There is a slight delay when between time updates depending on the scoreboard refresh interval you set, but regardless the game will end at exactly the time you specified.
 
 
 The countdown timer will display as follows:
@@ -113,6 +113,7 @@ The countdown timer will display as follows:
 ### Normal Timer
 
 <img src="https://raw.githubusercontent.com/InjectionSoftwareDevelopment/Propane/master/doc/normal_countdown.png"/>
+
 ### Thirty Minutes Left
 
 <img src="https://raw.githubusercontent.com/InjectionSoftwareDevelopment/Propane/master/doc/orange_countdown.png"/>
@@ -129,7 +130,7 @@ The countdown clock will turn orange when there is 30 minutes or less left, but 
 
 Initially Propane will not be capable scheduling events spanning multiple days. If this is a desired feature by the community it will be added in the future!
 
-The countdown timer is also currently not easily customizeable without changing the main source code. However there are a few customizations you can make! First off to make the countdown timer appear in your theme add the following code wherever you want the countdown to appear in your DOM:
+The countdown timer is currently not easily customizeable without changing the main source code. However there are a few customizations you can make! First off to make the countdown timer appear in your theme add the following code wherever you want the countdown to appear in your DOM:
 
 ```html
 <h3 id="countdown"></h3>
