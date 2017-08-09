@@ -18,8 +18,6 @@ An Open Source KoTH Platform based on [NetKotH](https://github.com/NetKotH/netko
 # How to use Propane:
 [Propane Setup Guide](https://github.com/InjectionSoftwareDevelopment/Propane/blob/master/doc/markdown/propane_setup.md)
 
-(The process will get simpler as we near a release build)
-
 
 # TODO:
 1. ~~Document base code, and write user instructions~~ ✅
