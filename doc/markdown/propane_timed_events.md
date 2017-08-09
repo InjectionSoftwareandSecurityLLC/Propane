@@ -1,8 +1,8 @@
 # Propane Timed Events
 
-Sometimes we want to schedule competitions to start and end at a certain time. Propane makes that simple with Time Events. In the `propane_config.ini` file simply specify a 24 hour time format start and/or end time and Propane will take care of the rest! *(Ex: 9:20, 19:20, 21:45, etc...)*
+Sometimes we want to schedule competitions to start and end at a certain time. Propane makes that simple with Timed Events. In the `propane_config.ini` file simply specify a 24 hour time format start and/or end time and Propane will take care of the rest! *(Ex: 9:20, 19:20, 21:45, etc...)*
 
-Timed events only need either a start OR and end time, they do not NEED both to work but you can of course schedule a game to start and end at a specific time. However, if you wish to start at a specific time and never end, or start immediately and end at a specifc time those options are available as well.
+Timed events only need either a start OR an end time, they do not NEED both to work but you can of course schedule a game to start and end at a specific time. However, perhaps you wish to start at a specific time and never end. Or maybe you wish to start immediately and end at a specifc time. Both of those options are available as well.
 
 Example
 
@@ -129,11 +129,11 @@ The countdown clock will turn orange when there is 30 minutes or less left, but 
 
 Initially Propane will not be capable scheduling events spanning multiple days. If this is a desired feature by the community it will be added in the future!
 
-The countdown timer is also currently not easily customizeable without changing the main source code. However there are a few customizations you can make! First off to add the countdown timer to you theme add the following in whatever location you want the countdown to appear in your DOM:
+The countdown timer is also currently not easily customizeable without changing the main source code. However there are a few customizations you can make! First off to make the countdown timer appear in your theme add the following code wherever you want the countdown to appear in your DOM:
 
 ```html
 <h3 id="countdown"></h3>
 <script src="countdown.js"></script>
 ```
 
-Now the countdown will appear in your template whenever an `endtime` is set (this is already in the default template). From here you can edit the CSS anyway you'd like, but changing verbiage or format is not really an option without changing the main source.
+Now the countdown will appear in your template whenever an `endtime` is set (this is already in the default template). From here you can edit the CSS anyway you'd like, but changing verbiage or format is not really an option at this time without changing the main source.
