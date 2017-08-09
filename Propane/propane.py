@@ -267,6 +267,61 @@ def reloadScoreBoard(server):
             print(bcolors.FAIL + bcolors.BOLD + "No section for " + server[0] + " (check your template for errors)" + bcolors.ENDC)
 
 
+def getEndTime(gameSetup):
+    currentTime = datetime.now()
+    
+    endHour = int(endTime.split(":")[0])
+    
+    endMinute = int(endTime.split(":")[1])
+    
+    formattedEndTime = currentTime.replace(day=currentTime.day, hour=endHour, minute=endMinute, microsecond=currentTime.microsecond)
+
+    timeDelta = formattedEndTime - currentTime
+
+    if gameSetup:
+        endTimer = Timer(timeDelta.seconds, endGame)
+        print(bcolors.YELLOW + bcolors.BOLD + "Propane will end at: " + str(formattedEndTime) + bcolors.ENDC)
+        endTimer.start()
+
+    timerJS = """
+        function startTimer(duration, display) {
+            var timer = duration, hours, minutes, seconds;
+                setInterval(function () {
+                        hours = parseInt(timer / 3600, 10)
+                        minutes = parseInt((timer / 60) % 60, 10)
+                        seconds = parseInt(timer % 60, 10);
+
+                        hours = hours < 10 ? "0" + hours : hours;
+                        minutes = minutes < 10 ? "0" + minutes : minutes;
+                        seconds = seconds < 10 ? "0" + seconds : seconds;
+
+                        
+                        
+                         display.textContent = "Time Remaining: " + hours + ":" + minutes + ":" + seconds;
+                        
+                        if(minutes <= 9){
+                            display.textContent = "FINAL COUTDOWN: " + hours + ":" + minutes + ":" + seconds;
+                            display.style.color = "red";
+                        }else if(minutes >= 10 && minutes <= 30){
+                            display.style.color = "orange";
+                        }
+                        
+                        if (--timer < 0) {
+                            timer = duration;
+                        }
+                    }, 1000);
+                }
+
+            window.onload = function () {
+                var countdownStart = """ + str(timeDelta.seconds) + """,
+                    display = document.querySelector('#countdown');
+                        startTimer(countdownStart, display);
+                };"""
+                
+    countdownJS = open(outdir + "countdown.js", "w+")
+    countdownJS.write(timerJS)
+    countdownJS.close()
+
 def endGame():
 
     print(bcolors.YELLOW + bcolors.BOLD + "Propane has ended at: " + str(datetime.now()) + bcolors.ENDC)
@@ -305,6 +360,9 @@ def main():
                 loadConfig()
                 # Init Score File
                 initScoreFile()
+                #Refresh Countdown Timer
+                if endTime and not gameSetup:
+                    getEndTime(gameSetup)
                 # Open template file
                 templateFile = open("template/template.html", 'r')
                 # Read in template file
@@ -347,21 +405,9 @@ def main():
                             time.sleep(timeDelta.seconds)
 
                         if endTime:
-                            currentTime = datetime.now()
-
-                            endHour = int(endTime.split(":")[0])
-                            endMinute = int(endTime.split(":")[1])
-
-                            formattedEndTime = currentTime.replace(day=currentTime.day, hour=endHour, minute=endMinute, microsecond=currentTime.microsecond)
-
-                            timeDelta = formattedEndTime - currentTime
-
-                            endTimer = Timer(timeDelta.seconds, endGame)
-
-                            print(bcolors.YELLOW + bcolors.BOLD + "Propane will end at: " + str(formattedEndTime) + bcolors.ENDC)
-
-                            endTimer.start()
-
+                            
+                            getEndTime(gameSetup)
+                            
                         gameSetup = False
                         
                 # Do some scoring!
