@@ -5,11 +5,9 @@
 </p>
 
 
+## VERSION 1.0 OFFICIAL RELEASE!
+
 An Open Source KoTH Platform based on [NetKotH](https://github.com/NetKotH/netkoth-python)
-
-Currently very much a WIP!
-
-Watch this project progress, but we strongly reccommend using NetKotH until we've rolled out a release!
 
 
 # Documentation:
@@ -31,15 +29,12 @@ Watch this project progress, but we strongly reccommend using NetKotH until we'v
 5. ~Create white/black list feature~ ✅
 6. ~Create timed event feature~ ✅ (solution by [myntal](https://github.com/Myntal), dev by [3ndG4me](https://github.com/3ndG4me))
 7. ~Propane Accessories~ ✅
-9. Setup/Install Scripts
-9. INITIAL RELEASE ??????? (MAYBE)
-10. TBD...Whatever else we come up with
+9. ~Setup/Install Scripts~ ✅
 
 
 
 
-
-## WIP Screenshots:
+## Screenshots:
 
 ### Scoreboard
 
