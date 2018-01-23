@@ -16,6 +16,7 @@ imp: used for importing plugins (Propane Accessories)
 datetime: used for scheduling games using a start/end time
 thread (Timer): The Timer is used to spawn a thread that will end the game 
                 once deltaTime value generated from the endtime in the config reaches 0.
+socket: Used to determine connections to a server/service
 
 """
 import urllib.request
@@ -28,6 +29,7 @@ import csv
 import imp
 from datetime import datetime
 from threading import Timer
+import socket
 
 
 # Colors for terminal output. Makes things pretty.
@@ -69,6 +71,8 @@ gameSetup: Initialize the global boolean that is used to test if this is the ini
             only needed to load in the initial template.
 PropAccDir: Initialize the main directory for plugins (Propane Accessories)
 PropAccModule: Initialize the main module name for all plugins (Propane Accessories)
+portsToCheck: Initializes the global where the parsed data about specific Ports to be checked for webservers will be stored.
+                (Initialized as string, bbut will be used as a list)
 '''
 config = configparser.RawConfigParser()
 scores = configparser.RawConfigParser()
@@ -84,18 +88,19 @@ endTime = ""
 gameSetup = True
 PropAccDir = "./PropAcc"
 PropAccModule = "__init__"
+portsToCheck = ""
 
 '''
 loadConfig():
     Loads and parses the propane_config file.
-    Loads the globals "configFile, serversToCheck, whiteListInit, blackListInit, sleepTime, outfile, outdir, startTime, endTime, whiteListIsOn, blackListIsOn, enablePropAcc" 
+    Loads the globals "configFile, serversToCheck, whiteListInit, blackListInit, sleepTime, outfile, outdir, startTime, endTime, whiteListIsOn, blackListIsOn, enablePropAcc, showTargetIP, enableCustomPorts, portsToCheck" 
     from the config file to use later on.
 '''
 
 
 def loadConfig():
         print(bcolors.CYAN + bcolors.BOLD + "Loading Configurations" + bcolors.ENDC)
-        global configFile, serversToCheck, whiteListInit, blackListInit, sleepTime, outfile, outdir, startTime, endTime, whiteListIsOn, blackListIsOn, enablePropAcc
+        global configFile, serversToCheck, whiteListInit, blackListInit, sleepTime, outfile, outdir, startTime, endTime, whiteListIsOn, blackListIsOn, enablePropAcc, showTargetIP, enableCustomPorts, portsToCheck
         configFile = config.read("propane_config.ini")
         serversToCheck = config.items("Targets")
         whiteListInit = config.items("WhiteList")
@@ -107,7 +112,10 @@ def loadConfig():
         endTime = config.get("General", "endtime")
         whiteListIsOn = config.getboolean("General", "whiteListOn")
         blackListIsOn = config.getboolean("General", "blackListOn")
-        enablePropAcc = config.getboolean("General", "EnablePropAcc")
+        enablePropAcc = config.getboolean("General", "enablePropAcc")
+        showTargetIP = config.getboolean("General", "showTargetIP")
+        enableCustomPorts = config.getboolean("General", "enableCustomPorts")
+        portsToCheck = config.items("PortConfig")
 
 
 
@@ -146,19 +154,25 @@ score():
     If a connection is found the team tag is parsed and the appropriate team (first tag found) is awarded a point/added
     to the scoreboard.
     Writes the new score data to the propane_scores file.
-    If server is not found, and error message displays in console.
+    If server is not found, an error message displays in console.
     If no one owns the box scanned, then no points are awarded.
     If black list feature is on, then users in the black list are flagged in the output and no score is awarded.
     If white list is feature is on, then users not in the white list are flagged in the output and no score is awarded.
 '''
 
 def score(whiteList, blackList):
+        #Prepare for socket connection testing if webpage cannot be reached
+        sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         scoresFile = scores.read("propane_scores.txt")
         for server in serversToCheck:
             try:
+                serverURL = 'http://' + server[1]
+                if (enableCustomPorts):
+                    for port in portsToCheck:
+                        if(port[0] == server[0]):
+                            serverURL = serverURL + ":" + port[1]
                 print(bcolors.GREEN + bcolors.BOLD + "Checking Server: " + bcolors.RED + server[0] + bcolors.ENDC + " @ " + bcolors.BOLD + server[1] + bcolors.ENDC)
-                url = urllib.request.urlopen(server[1],None,10)
-                #url = urllib2.urlopen(server[1])
+                url = urllib.request.urlopen(serverURL,None,10)
                 html = url.read()
                 team = re.search('<team>(.*)</team>', str(html), re.IGNORECASE).group(1).strip().replace("=","").replace("<","").replace(">","")
                 print(bcolors.BOLD + "Server " + server[0] + bcolors.ENDC + " pwned by " + bcolors.RED + team + bcolors.ENDC)
@@ -212,9 +226,30 @@ def score(whiteList, blackList):
                     currentScore = scores.getint( serverScoresection,team)
                     scores.set( serverScoresection, team, currentScore+1)
             except IOError:
-                print(bcolors.FAIL + bcolors.BOLD + server[0] + bcolors.ENDC + " @ " + bcolors.FAIL + bcolors.BOLD + server[1] + bcolors.ENDC + " might be down, skipping it")
+                response = os.system("ping -c 1 " + server[1] + " > /dev/null 2>&1")
+                if (response == 0):
+                    print(bcolors.GREEN + bcolors.BOLD + "Host for: " + bcolors.RED + server[0] + bcolors.ENDC + " @ " + bcolors.BOLD + server[1] + bcolors.ENDC + bcolors.GREEN + bcolors.BOLD + " is up!" + bcolors.ENDC) 
+                else:
+                    print(bcolors.FAIL + bcolors.BOLD + server[0] + bcolors.ENDC + " @ " + bcolors.FAIL + bcolors.BOLD + server[1] + bcolors.ENDC + bcolors.FAIL + bcolors.BOLD + " host is down, you may want to check it!" + bcolors.ENDC)
+
+                try:
+                    sock.settimeout(5)
+                    if (enableCustomPorts):
+                        for port in portsToCheck:
+                            if(port[0] == server[0]):
+                                sock.connect((server[1], port[1]))
+                                break
+                            else:
+                                print(server[0] + " good")
+                                break
+                    else:
+                        sock.connect((server[1], 80))
+                    print(bcolors.GREEN + bcolors.BOLD + "Web service for: " + bcolors.RED + server[0] + bcolors.ENDC + " @ " + bcolors.BOLD + server[1] + bcolors.ENDC + bcolors.GREEN + bcolors.BOLD + " is up!" + bcolors.ENDC)
+                except socket.error as e:
+                    print(bcolors.FAIL + bcolors.BOLD + server[0] + bcolors.ENDC + " @ " + bcolors.FAIL + bcolors.BOLD + server[1] + bcolors.ENDC + bcolors.FAIL + bcolors.BOLD + " web service is down, you may want to check it!" + bcolors.ENDC)
+                sock.close()
             except AttributeError:
-                print(bcolors.BOLD + "Server " + bcolors.RED + server[0] + bcolors.ENDC + " might not be " + bcolors.RED + "pwned " + bcolors.ENDC + "yet")
+                print(bcolors.BOLD + "Server " + bcolors.RED + server[0] + bcolors.ENDC + " is not officially " + bcolors.RED + "pwned " + bcolors.ENDC + "yet")
         with open("propane_scores.txt", 'w') as scoresFile:
                 scores.write(scoresFile)
 
@@ -240,6 +275,7 @@ def initScoreFile():
 '''
 reloadScoreBoard():
     Fetches the score data from the the server list and formats it into an HTML table.
+    Also does a second service check to inform users of the servers/service status on the scoreboard.
     The table is returned to be used elsewhere.
 
     If a section is missing an error is displayed in the console.
@@ -253,11 +289,41 @@ def reloadScoreBoard(server):
             serverScoresection = server[0]+"Scores"
             serverScores = scores.items(serverScoresection)
 
+            #Check if servers and web services are up
+            serverStatus = False
+            webServerStatus = False
+            
+            sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+            sock.settimeout(5)
+            response = os.system("ping -c 1 " + server[1] + " > /dev/null 2>&1")
+            if (response == 0):
+                serverStatus = True
+            else:
+                serverStatus = False
+            try:
+                sock.connect((server[1], 80))
+                webServerStatus = True
+            except socket.error as e:
+                webServerStatus = False
+            sock.close()
+
             tableResults = "<div class=\"col-md-12\" id=\"" + server[0] + "\">"
             tableResults = tableResults + "<table class=\"table\" border=\"2\">\n<tr>"
-            tableResults = tableResults + "<td colspan=\"2\"><center><h3>" +(server[0]).title() + "</h3><br>"
-            if((server[0]).title() != "Total"):
-                    tableResults = tableResults + "<hr style=\"border-top: 1px solid #000;\"/><h4>Server: <a href=\"" + server[1] + "\">" + server[1]  +"</a></h4>"
+            if (serverStatus and (server[0]).title() != "Total"):
+                if (webServerStatus):
+                    tableResults = tableResults + "<td colspan=\"2\"><center><h3>" +(server[0]).title() + "</h3><br>Server Status: <span style='color:green'>Up</span><br><br>Web Service: <span style='color:green'>Up</span><br>"
+                else:
+                    tableResults = tableResults + "<td colspan=\"2\"><center><h3>" +(server[0]).title() + "</h3><br>Server Status: <span style='color:green'>Up</span><br><br>Web Service: <span style='color:red'>Down</span><br>"   
+            elif (not serverStatus and (server[0]).title() != "Total"):
+                if(webServerStatus):
+                    tableResults = tableResults + "<td colspan=\"2\"><center><h3>" +(server[0]).title() + "</h3><br>Server Status: <span style='color:red'>Down</span><br><br>Web Service: <span style='color:green'>Up</span><br>"
+                else:
+                    tableResults = tableResults + "<td colspan=\"2\"><center><h3>" +(server[0]).title() + "</h3><br>Server Status: <span style='color:red'>Down</span><br><br>Web Service: <span style='color:red'>Down</span><br>"
+
+            else:
+                tableResults = tableResults + "<td colspan=\"2\"><center><h3>" +(server[0]).title() + "</h3><br>"                
+            if((server[0]).title() != "Total" and showTargetIP):
+                    tableResults = tableResults + "<hr style=\"border-top: 1px solid #000;\"/><h4>Server: <span style='color: #1E90FF'>" + server[1]  +"</span></h4>"
             tableResults = tableResults + "</center></td></tr>\n"
             serverScores.sort(key=lambda score: -int(score[1]))
             topTagStart="<div class=\"topscore\">"
