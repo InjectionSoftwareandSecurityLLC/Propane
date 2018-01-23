@@ -19,18 +19,27 @@ outdir = changeme/
 sleeptime = 60
 whiteListOn = false
 blackListOn = false
+enablePropAcc = false
+showTargetIP = true
+enableCustomPorts = false
+starttime = 
+endtime =
 
 [Targets]
-linux = http://192.168.2.24/index.html
-windoos = http://192.168.2.24/test.html
-ms3 = http://192.168.2.24/homepage.html
-webserver = http://192.168.2.24/prop.html
+linux = 192.168.2.51
+windoos =  192.168.2.52
+ms3 =  192.168.2.50
+webserver =  192.168.2.60
+
+[PortConfig]
+linux = 1337
 
 [WhiteList]
 users = nate,myntal,clamsec
 
 [BlackList]
 users = 3ndG4me
+
 ```
 
 
@@ -43,18 +52,27 @@ outdir = changeme/
 sleeptime = 60
 whiteListOn = true
 blackListOn = false
+enablePropAcc = false
+showTargetIP = true
+enableCustomPorts = false
+starttime = 
+endtime =
 
 [Targets]
-linux = http://192.168.2.24/index.html
-windoos = http://192.168.2.24/test.html
-ms3 = http://192.168.2.24/homepage.html
-webserver = http://192.168.2.24/prop.html
+linux = 192.168.2.51
+windoos =  192.168.2.52
+ms3 =  192.168.2.50
+webserver =  192.168.2.60
+
+[PortConfig]
+linux = 1337
 
 [WhiteList]
 users = nate,myntal,clamsec
 
 [BlackList]
 users = 3ndG4me
+
 ```
 
 
@@ -76,18 +94,27 @@ outdir = changeme/
 sleeptime = 60
 whiteListOn = true
 blackListOn = false
+enablePropAcc = false
+showTargetIP = true
+enableCustomPorts = false
+starttime = 
+endtime =
 
 [Targets]
-linux = http://192.168.2.24/index.html
-windoos = http://192.168.2.24/test.html
-ms3 = http://192.168.2.24/homepage.html
-webserver = http://192.168.2.24/prop.html
+linux = 192.168.2.51
+windoos =  192.168.2.52
+ms3 =  192.168.2.50
+webserver =  192.168.2.60
+
+[PortConfig]
+linux = 1337
 
 [WhiteList]
 users = 
 
 [BlackList]
 users = 
+
 ```
 
 ### After
@@ -99,18 +126,27 @@ outdir = changeme/
 sleeptime = 60
 whiteListOn = true
 blackListOn = false
+enablePropAcc = false
+showTargetIP = true
+enableCustomPorts = false
+starttime = 
+endtime =
 
 [Targets]
-linux = http://192.168.2.24/index.html
-windoos = http://192.168.2.24/test.html
-ms3 = http://192.168.2.24/homepage.html
-webserver = http://192.168.2.24/prop.html
+linux = 192.168.2.51
+windoos =  192.168.2.52
+ms3 =  192.168.2.50
+webserver =  192.168.2.60
+
+[PortConfig]
+linux = 1337
 
 [WhiteList]
 users = nate,myntal,clamsec
 
 [BlackList]
 users = 
+
 ```
 
 
@@ -130,18 +166,27 @@ outdir = changeme/
 sleeptime = 60
 whiteListOn = false
 blackListOn = false
+enablePropAcc = false
+showTargetIP = true
+enableCustomPorts = false
+starttime = 
+endtime =
 
 [Targets]
-linux = http://192.168.2.24/index.html
-windoos = http://192.168.2.24/test.html
-ms3 = http://192.168.2.24/homepage.html
-webserver = http://192.168.2.24/prop.html
+linux = 192.168.2.51
+windoos =  192.168.2.52
+ms3 =  192.168.2.50
+webserver =  192.168.2.60
+
+[PortConfig]
+linux = 1337
 
 [WhiteList]
 users = nate,myntal,clamsec
 
 [BlackList]
 users = 3ndG4me
+
 ```
 
 
@@ -154,18 +199,27 @@ outdir = changeme/
 sleeptime = 60
 whiteListOn = false
 blackListOn = true
+enablePropAcc = false
+showTargetIP = true
+enableCustomPorts = false
+starttime = 
+endtime =
 
 [Targets]
-linux = http://192.168.2.24/index.html
-windoos = http://192.168.2.24/test.html
-ms3 = http://192.168.2.24/homepage.html
-webserver = http://192.168.2.24/prop.html
+linux = 192.168.2.51
+windoos =  192.168.2.52
+ms3 =  192.168.2.50
+webserver =  192.168.2.60
+
+[PortConfig]
+linux = 1337
 
 [WhiteList]
 users = nate,myntal,clamsec
 
 [BlackList]
 users = 3ndG4me
+
 ```
 
 To add users to the Black List simply add a team tag in comma delimited format (see the example below).
@@ -183,20 +237,29 @@ Example:
 outfile = changeme/index.html
 outdir = changeme/
 sleeptime = 60
-whiteListOn = true
+whiteListOn = false
 blackListOn = false
+enablePropAcc = false
+showTargetIP = true
+enableCustomPorts = false
+starttime = 
+endtime =
 
 [Targets]
-linux = http://192.168.2.24/index.html
-windoos = http://192.168.2.24/test.html
-ms3 = http://192.168.2.24/homepage.html
-webserver = http://192.168.2.24/prop.html
+linux = 192.168.2.51
+windoos =  192.168.2.52
+ms3 =  192.168.2.50
+webserver =  192.168.2.60
+
+[PortConfig]
+linux = 1337
 
 [WhiteList]
-users = 
+users =
 
 [BlackList]
 users = 
+
 ```
 
 ### After
@@ -206,18 +269,27 @@ users =
 outfile = changeme/index.html
 outdir = changeme/
 sleeptime = 60
-whiteListOn = true
+whiteListOn = false
 blackListOn = false
+enablePropAcc = false
+showTargetIP = true
+enableCustomPorts = false
+starttime = 
+endtime =
 
 [Targets]
-linux = http://192.168.2.24/index.html
-windoos = http://192.168.2.24/test.html
-ms3 = http://192.168.2.24/homepage.html
-webserver = http://192.168.2.24/prop.html
+linux = 192.168.2.51
+windoos =  192.168.2.52
+ms3 =  192.168.2.50
+webserver =  192.168.2.60
+
+[PortConfig]
+linux = 1337
 
 [WhiteList]
-users = 
+users =
 
 [BlackList]
 users = 3ndG4me, nate, myntal, clamsec
+
 ```

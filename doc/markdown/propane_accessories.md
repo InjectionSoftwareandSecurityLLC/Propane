@@ -14,22 +14,30 @@ Example:
 [General]
 outfile = changeme/index.html
 outdir = changeme/
-sleeptime = 60
+sleeptime = 5
 whiteListOn = false
 blackListOn = false
-EnablePropAcc = false
+enablePropAcc = false
+showTargetIP = true
+enableCustomPorts = false
+starttime = 
+endtime =
 
 [Targets]
-linux = http://192.168.2.24/index.html
-windoos = http://192.168.2.24/test.html
-ms3 = http://192.168.2.24/homepage.html
-webserver = http://192.168.2.24/prop.html
+linux = 192.168.2.51
+windoos =  192.168.2.52
+ms3 =  192.168.2.50
+webserver =  192.168.2.60
+
+[PortConfig]
+linux = 1337
 
 [WhiteList]
 users = nate,myntal,clamsec
 
 [BlackList]
 users = 3ndG4me
+
 ```
 
 ### After
@@ -37,22 +45,30 @@ users = 3ndG4me
 [General]
 outfile = changeme/index.html
 outdir = changeme/
-sleeptime = 60
+sleeptime = 5
 whiteListOn = false
 blackListOn = false
-EnablePropAcc = true
+enablePropAcc = true
+showTargetIP = true
+enableCustomPorts = false
+starttime = 
+endtime =
 
 [Targets]
-linux = http://192.168.2.24/index.html
-windoos = http://192.168.2.24/test.html
-ms3 = http://192.168.2.24/homepage.html
-webserver = http://192.168.2.24/prop.html
+linux = 192.168.2.51
+windoos =  192.168.2.52
+ms3 =  192.168.2.50
+webserver =  192.168.2.60
+
+[PortConfig]
+linux = 1337
 
 [WhiteList]
 users = nate,myntal,clamsec
 
 [BlackList]
 users = 3ndG4me
+
 ```
 
 

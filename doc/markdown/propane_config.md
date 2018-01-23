@@ -14,9 +14,17 @@ The configuration file is broken down as such:
 ## [General]
 Upon first cloning the Propane project your configuration file under [General] will look like this:
 ```
+[General]
 outfile = changeme/index.html
 outdir = changeme/
 sleeptime = 60
+whiteListOn = false
+blackListOn = false
+enablePropAcc = false
+showTargetIP = true
+enableCustomPorts = false
+starttime = 
+endtime =
 ```
 
 Below is a description of each of these settings:
@@ -29,20 +37,45 @@ It is reccommend you write this to your root web server directory as the index.h
 **sleeptime** the interval at which the scoreboard scores TARGETS in SECONDS. Default is 60 but feel free to set this to whatever value you want.
 
 
+**whiteListOn** is a boolean value that enables or disables the "White List" feature that only allows specified users in the list to earn points when a box is scored. The actual list for this feature is set as a comma delimited list under the [WhiteList] section of the configuration file.
+
+**balckListOn** is a boolean value that enables or disables the "Black List" feature that bans specified users in the list from earning points when a box is scored. The actual list for this feature is set as a comma delimited list under the [BlackList] section of the configuration file.
+
+**enablePropAcc** is a boolean that tells Propane whether or not to execute PropAccs that are in the PropAcc directory.
+
+**showTargetIP** is a boolean that simply toggles the visibility of the Target IPs on the scoreboard.
+
+**starttime** is a 24 hour formatted time at which a game of Propane will begin. If this is set, when Propane is executed it will not begin scoring until the specified time is reached.
+
+**endtime** is a 24 hour formatted time at which a game of Propane will end. If this is set, the Propane scoreboard will display a countdown timer and the game will cease all scoring and end itself once this end time is reached.
+
+
 ## [Targets]
 Upon first cloning the Propane project your configuration file under [Targets] will look like this:
 ```
-linux = http://192.168.1.13/index.html
-windoos = http://192.168.1.13/test.html
+[Targets]
+linux = 192.168.2.51
+windoos =  192.168.2.52
+ms3 =  192.168.2.54
+webserver =  192.168.2.60
 ```
 
-These are placeholder values and should be replaced with whatever TARGETS you have set up and the IP/location of the HTML file that is being scored by the scoreboard. We reccommend keeping it simple and pointing to an INDEX file just in case things get rowdy and a web server's settings are cleared or crucial files are deleted during the heat of battle. This will allow competitors to write to whatever the INDEX file is and move on. If you wanna make it challenging and require users to keep up with a specific file however, you can absolutely do that. The syntax for the above format shown is as follows:
+These are placeholder values and should be replaced with whatever TARGETS you have set up. By default Propane searches for an index.html|php|aspx|etc... that is loaded at the base IP on Port 80. Once this page is found it searches for the *team* tag and scores the box for the appropriate user that placed this tag.
 
-**[TARGET NAME]** = **[TARGET IP and path to HTML file]**
+**[TARGET NAME]** = **[TARGET IP]**
 
 Example:
 
-**metasploitable** =  **http://192.168.1.20/index.html**
+**metasploitable** =  **192.168.2.65**
+
+If you wish to score a web server on a different port you can toggle the *enableCustomPorts* option to true, and set a custom port per target in the [PortConfig] section. **Note** the target name in PortConfig must match the name of the desired target you are setting a custom port for. For the above example, if we want to check for a team tag for a webserver on port 3000 instead of 80, we would set *enableCustomPorts* to true, and then edit the [PortConfig] section.
+
+**[TARGET NAME]** = **[TARGET PORT]**
+
+Example:
+
+**metasploitable** =  **3000**
+
 
 
 

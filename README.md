@@ -5,7 +5,7 @@
 </p>
 
 
-## VERSION 1.0 OFFICIAL RELEASE!
+## VERSION 1.1 WIP!
 
 An Open Source KoTH Platform based on [NetKotH](https://github.com/NetKotH/netkoth-python)
 
@@ -18,8 +18,12 @@ An Open Source KoTH Platform based on [NetKotH](https://github.com/NetKotH/netko
 # How to use Propane:
 [Propane Setup Guide](https://github.com/InjectionSoftwareDevelopment/Propane/blob/master/doc/markdown/propane_setup.md)
 
+# WIP Features:
+1. Improved Server Status Checks/Scoreboard Server Status
+2. Target IP Scoreboard Toggle
+3. Scoreboard backups
 
-# Features:
+# Current Features:
 1. Propane Accessories! (Plugins)
 2. White/Black Lists
 3. Timed Events

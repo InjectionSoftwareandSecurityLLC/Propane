@@ -53,10 +53,17 @@ After typing in your desired install directory, Propane will automatically insta
     outfile = www/index.html
     outdir = www/
     sleeptime = 60
+    whiteListOn = false
+    blackListOn = false
+    enablePropAcc = false
+    showTargetIP = true
+    enableCustomPorts = false
+    starttime = 
+    endtime =
 
     [Targets]
-    linux = http://192.168.1.13/index.html
-    windoos = http://192.168.1.13/test.html
+    linux = 192.168.2.51
+    windoos =  192.168.2.52
 
     ```
 
@@ -68,10 +75,17 @@ After typing in your desired install directory, Propane will automatically insta
     outfile = www/html/index.html
     outdir = www/html/
     sleeptime = 60
+    whiteListOn = false
+    blackListOn = false
+    enablePropAcc = false
+    showTargetIP = true
+    enableCustomPorts = false
+    starttime = 
+    endtime =
 
     [Targets]
-    linux = http://192.168.1.13/index.html
-    windoos = http://192.168.1.13/test.html
+    linux = 192.168.2.51
+    windoos =  192.168.2.52
     ```
 6. Add in the proper **TARGETS** to the config file. See [Propane Config](https://github.com/InjectionSoftwareDevelopment/Propane/blob/master/doc/markdown/propane_config.md) docs for more info.
 7. Add in the **`<TARGET>` tags** to the `template.html` in your `templates/` directory. See [Propane Templates](https://github.com/InjectionSoftwareDevelopment/Propane/blob/master/doc/markdown/propane_templates.md) for how to edit templates.
