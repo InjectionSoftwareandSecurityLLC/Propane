@@ -19,8 +19,8 @@ An Open Source KoTH Platform based on [NetKotH](https://github.com/NetKotH/netko
 [Propane Setup Guide](https://github.com/InjectionSoftwareDevelopment/Propane/blob/master/doc/markdown/propane_setup.md)
 
 # WIP Features:
-1. Improved Server Status Checks/Scoreboard Server Status
-2. Target IP Scoreboard Toggle
+1. ~~Improved Server Status Checks/Scoreboard Server Status~~
+2. ~~Target IP Scoreboard Toggle~~
 3. Scoreboard backups
 
 # Current Features:
