@@ -71,6 +71,8 @@ gameSetup: Initialize the global boolean that is used to test if this is the ini
             only needed to load in the initial template.
 PropAccDir: Initialize the main directory for plugins (Propane Accessories)
 PropAccModule: Initialize the main module name for all plugins (Propane Accessories)
+portsToCheck: Initializes the global where the parsed data about specific Ports to be checked for webservers will be stored.
+                (Initialized as string, bbut will be used as a list)
 '''
 config = configparser.RawConfigParser()
 scores = configparser.RawConfigParser()
@@ -86,18 +88,19 @@ endTime = ""
 gameSetup = True
 PropAccDir = "./PropAcc"
 PropAccModule = "__init__"
+portsToCheck = ""
 
 '''
 loadConfig():
     Loads and parses the propane_config file.
-    Loads the globals "configFile, serversToCheck, whiteListInit, blackListInit, sleepTime, outfile, outdir, startTime, endTime, whiteListIsOn, blackListIsOn, enablePropAcc" 
+    Loads the globals "configFile, serversToCheck, whiteListInit, blackListInit, sleepTime, outfile, outdir, startTime, endTime, whiteListIsOn, blackListIsOn, enablePropAcc, showTargetIP, enableCustomPorts, portsToCheck" 
     from the config file to use later on.
 '''
 
 
 def loadConfig():
         print(bcolors.CYAN + bcolors.BOLD + "Loading Configurations" + bcolors.ENDC)
-        global configFile, serversToCheck, whiteListInit, blackListInit, sleepTime, outfile, outdir, startTime, endTime, whiteListIsOn, blackListIsOn, enablePropAcc
+        global configFile, serversToCheck, whiteListInit, blackListInit, sleepTime, outfile, outdir, startTime, endTime, whiteListIsOn, blackListIsOn, enablePropAcc, showTargetIP, enableCustomPorts, portsToCheck
         configFile = config.read("propane_config.ini")
         serversToCheck = config.items("Targets")
         whiteListInit = config.items("WhiteList")
@@ -109,7 +112,10 @@ def loadConfig():
         endTime = config.get("General", "endtime")
         whiteListIsOn = config.getboolean("General", "whiteListOn")
         blackListIsOn = config.getboolean("General", "blackListOn")
-        enablePropAcc = config.getboolean("General", "EnablePropAcc")
+        enablePropAcc = config.getboolean("General", "enablePropAcc")
+        showTargetIP = config.getboolean("General", "showTargetIP")
+        enableCustomPorts = config.getboolean("General", "enableCustomPorts")
+        portsToCheck = config.items("PortConfig")
 
 
 
@@ -161,6 +167,10 @@ def score(whiteList, blackList):
         for server in serversToCheck:
             try:
                 serverURL = 'http://' + server[1]
+                if (enableCustomPorts):
+                    for port in portsToCheck:
+                        if(port[0] == server[0]):
+                            serverURL = serverURL + ":" + port[1]
                 print(bcolors.GREEN + bcolors.BOLD + "Checking Server: " + bcolors.RED + server[0] + bcolors.ENDC + " @ " + bcolors.BOLD + server[1] + bcolors.ENDC)
                 url = urllib.request.urlopen(serverURL,None,10)
                 html = url.read()
@@ -223,7 +233,17 @@ def score(whiteList, blackList):
                     print(bcolors.FAIL + bcolors.BOLD + server[0] + bcolors.ENDC + " @ " + bcolors.FAIL + bcolors.BOLD + server[1] + bcolors.ENDC + bcolors.FAIL + bcolors.BOLD + " host is down, you may want to check it!" + bcolors.ENDC)
 
                 try:
-                    sock.connect((server[1], 80))
+                    sock.settimeout(5)
+                    if (enableCustomPorts):
+                        for port in portsToCheck:
+                            if(port[0] == server[0]):
+                                sock.connect((server[1], port[1]))
+                                break
+                            else:
+                                print(server[0] + " good")
+                                break
+                    else:
+                        sock.connect((server[1], 80))
                     print(bcolors.GREEN + bcolors.BOLD + "Web service for: " + bcolors.RED + server[0] + bcolors.ENDC + " @ " + bcolors.BOLD + server[1] + bcolors.ENDC + bcolors.GREEN + bcolors.BOLD + " is up!" + bcolors.ENDC)
                 except socket.error as e:
                     print(bcolors.FAIL + bcolors.BOLD + server[0] + bcolors.ENDC + " @ " + bcolors.FAIL + bcolors.BOLD + server[1] + bcolors.ENDC + bcolors.FAIL + bcolors.BOLD + " web service is down, you may want to check it!" + bcolors.ENDC)
@@ -274,6 +294,7 @@ def reloadScoreBoard(server):
             webServerStatus = False
             
             sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+            sock.settimeout(5)
             response = os.system("ping -c 1 " + server[1] + " > /dev/null 2>&1")
             if (response == 0):
                 serverStatus = True
@@ -301,7 +322,7 @@ def reloadScoreBoard(server):
 
             else:
                 tableResults = tableResults + "<td colspan=\"2\"><center><h3>" +(server[0]).title() + "</h3><br>"                
-            if((server[0]).title() != "Total"):
+            if((server[0]).title() != "Total" and showTargetIP):
                     tableResults = tableResults + "<hr style=\"border-top: 1px solid #000;\"/><h4>Server: <span style='color: #1E90FF'>" + server[1]  +"</span></h4>"
             tableResults = tableResults + "</center></td></tr>\n"
             serverScores.sort(key=lambda score: -int(score[1]))

@@ -12,16 +12,23 @@ Example
 [General]
 outfile = changeme/index.html
 outdir = changeme/
-sleeptime = 10
+sleeptime = 60
 whiteListOn = false
 blackListOn = false
-EnablePropAcc = false
+enablePropAcc = false
+showTargetIP = true
+enableCustomPorts = false
 starttime = 
-endtime = 
+endtime =
 
 [Targets]
-linux = http://192.168.2.24/index.html
+linux = 192.168.2.51
+windoos =  192.168.2.52
+ms3 =  192.168.2.50
+webserver =  192.168.2.60
 
+[PortConfig]
+linux = 1337
 
 [WhiteList]
 users = nate,myntal,clamsec
@@ -37,22 +44,30 @@ users = 3ndG4me
 [General]
 outfile = changeme/index.html
 outdir = changeme/
-sleeptime = 10
+sleeptime = 60
 whiteListOn = false
 blackListOn = false
-EnablePropAcc = false
+enablePropAcc = false
+showTargetIP = true
+enableCustomPorts = false
 starttime = 7:00
 endtime = 19:00
 
 [Targets]
-linux = http://192.168.2.24/index.html
+linux = 192.168.2.51
+windoos =  192.168.2.52
+ms3 =  192.168.2.50
+webserver =  192.168.2.60
 
+[PortConfig]
+linux = 1337
 
 [WhiteList]
 users = nate,myntal,clamsec
 
 [BlackList]
 users = 3ndG4me
+
 ```
 
 
@@ -62,22 +77,30 @@ users = 3ndG4me
 [General]
 outfile = changeme/index.html
 outdir = changeme/
-sleeptime = 10
+sleeptime = 60
 whiteListOn = false
 blackListOn = false
-EnablePropAcc = false
+enablePropAcc = false
+showTargetIP = true
+enableCustomPorts = false
 starttime = 15:45
-endtime = 
+endtime =
 
 [Targets]
-linux = http://192.168.2.24/index.html
+linux = 192.168.2.51
+windoos =  192.168.2.52
+ms3 =  192.168.2.50
+webserver =  192.168.2.60
 
+[PortConfig]
+linux = 1337
 
 [WhiteList]
 users = nate,myntal,clamsec
 
 [BlackList]
 users = 3ndG4me
+
 ```
 
 ### After (End)
@@ -86,16 +109,23 @@ users = 3ndG4me
 [General]
 outfile = changeme/index.html
 outdir = changeme/
-sleeptime = 10
+sleeptime = 60
 whiteListOn = false
 blackListOn = false
-EnablePropAcc = false
+enablePropAcc = false
+showTargetIP = true
+enableCustomPorts = false
 starttime = 
 endtime = 21:30
 
 [Targets]
-linux = http://192.168.2.24/index.html
+linux = 192.168.2.51
+windoos =  192.168.2.52
+ms3 =  192.168.2.50
+webserver =  192.168.2.60
 
+[PortConfig]
+linux = 1337
 
 [WhiteList]
 users = nate,myntal,clamsec
