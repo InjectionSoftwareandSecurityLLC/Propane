@@ -23,6 +23,7 @@ blackListOn = false
 enablePropAcc = false
 showTargetIP = true
 enableCustomPorts = false
+enableBackUp = false
 starttime = 
 endtime =
 ```
@@ -44,6 +45,8 @@ It is reccommend you write this to your root web server directory as the index.h
 **enablePropAcc** is a boolean that tells Propane whether or not to execute PropAccs that are in the PropAcc directory.
 
 **showTargetIP** is a boolean that simply toggles the visibility of the Target IPs on the scoreboard.
+
+**enableBackUp** is a boolean that toggles the scoreboard back up feature. If you enable this feature Propane will create time stamped back up of the scores file on every scoring interval.
 
 **starttime** is a 24 hour formatted time at which a game of Propane will begin. If this is set, when Propane is executed it will not begin scoring until the specified time is reached.
 

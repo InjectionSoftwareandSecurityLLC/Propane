@@ -18,6 +18,7 @@ blackListOn = false
 enablePropAcc = false
 showTargetIP = true
 enableCustomPorts = false
+enableBackUp = false
 starttime = 
 endtime =
 
@@ -50,6 +51,7 @@ blackListOn = false
 enablePropAcc = false
 showTargetIP = true
 enableCustomPorts = false
+enableBackUp = false
 starttime = 7:00
 endtime = 19:00
 
@@ -83,6 +85,7 @@ blackListOn = false
 enablePropAcc = false
 showTargetIP = true
 enableCustomPorts = false
+enableBackUp = false
 starttime = 15:45
 endtime =
 
@@ -115,6 +118,7 @@ blackListOn = false
 enablePropAcc = false
 showTargetIP = true
 enableCustomPorts = false
+enableBackUp = false
 starttime = 
 endtime = 21:30
 
