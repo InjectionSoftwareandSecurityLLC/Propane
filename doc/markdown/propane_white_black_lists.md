@@ -22,6 +22,7 @@ blackListOn = false
 enablePropAcc = false
 showTargetIP = true
 enableCustomPorts = false
+enableBackUp = false
 starttime = 
 endtime =
 
@@ -55,6 +56,7 @@ blackListOn = false
 enablePropAcc = false
 showTargetIP = true
 enableCustomPorts = false
+enableBackUp = false
 starttime = 
 endtime =
 
@@ -97,6 +99,7 @@ blackListOn = false
 enablePropAcc = false
 showTargetIP = true
 enableCustomPorts = false
+enableBackUp = false
 starttime = 
 endtime =
 
@@ -129,6 +132,7 @@ blackListOn = false
 enablePropAcc = false
 showTargetIP = true
 enableCustomPorts = false
+enableBackUp = false
 starttime = 
 endtime =
 
@@ -169,6 +173,7 @@ blackListOn = false
 enablePropAcc = false
 showTargetIP = true
 enableCustomPorts = false
+enableBackUp = false
 starttime = 
 endtime =
 
@@ -202,6 +207,7 @@ blackListOn = true
 enablePropAcc = false
 showTargetIP = true
 enableCustomPorts = false
+enableBackUp = false
 starttime = 
 endtime =
 
@@ -242,6 +248,7 @@ blackListOn = false
 enablePropAcc = false
 showTargetIP = true
 enableCustomPorts = false
+enableBackUp = false
 starttime = 
 endtime =
 
@@ -274,6 +281,7 @@ blackListOn = false
 enablePropAcc = false
 showTargetIP = true
 enableCustomPorts = false
+enableBackUp = false
 starttime = 
 endtime =
 

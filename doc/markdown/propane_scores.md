@@ -125,3 +125,77 @@ myntal = 10
 
 
 As an administrator you have full control over teams and scores, and all you have to do is make simple edits to the propane_scores.txt file.
+
+
+## Scoreboard Backups
+
+In version 1.1 Propane implements a new scoreboard backup feature. This feature can be enabled by simply turning the `enableBackUp` configuration option to `true` in the propane_config.ini file. This will make a timestamped copy of the scoreboard file to a folder called `Scoreboard_Backups` on each scoring interval.
+
+## Examples:
+
+
+**Before**
+
+```
+[General]
+outfile = changeme/index.html
+outdir = changeme/
+sleeptime = 60
+whiteListOn = false
+blackListOn = false
+enablePropAcc = false
+showTargetIP = true
+enableCustomPorts = false
+enableBackUp = false
+starttime = 
+endtime =
+
+[Targets]
+linux = 192.168.2.51
+windoos =  192.168.2.52
+ms3 =  192.168.2.50
+webserver =  192.168.2.60
+
+[PortConfig]
+linux = 1337
+
+[WhiteList]
+users = nate,myntal,clamsec
+
+[BlackList]
+users = 3ndG4me
+
+```
+
+**After**
+
+```
+[General]
+outfile = changeme/index.html
+outdir = changeme/
+sleeptime = 60
+whiteListOn = false
+blackListOn = false
+enablePropAcc = false
+showTargetIP = true
+enableCustomPorts = false
+enableBackUp = true
+starttime = 
+endtime =
+
+[Targets]
+linux = 192.168.2.51
+windoos =  192.168.2.52
+ms3 =  192.168.2.50
+webserver =  192.168.2.60
+
+[PortConfig]
+linux = 1337
+
+[WhiteList]
+users = nate,myntal,clamsec
+
+[BlackList]
+users = 3ndG4me
+
+```

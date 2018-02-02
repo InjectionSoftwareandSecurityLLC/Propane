@@ -58,6 +58,7 @@ After typing in your desired install directory, Propane will automatically insta
     enablePropAcc = false
     showTargetIP = true
     enableCustomPorts = false
+    enableBackUp = false
     starttime = 
     endtime =
 
@@ -80,6 +81,7 @@ After typing in your desired install directory, Propane will automatically insta
     enablePropAcc = false
     showTargetIP = true
     enableCustomPorts = false
+    enableBackUp = false
     starttime = 
     endtime =
 

@@ -17,6 +17,7 @@ datetime: used for scheduling games using a start/end time
 thread (Timer): The Timer is used to spawn a thread that will end the game 
                 once deltaTime value generated from the endtime in the config reaches 0.
 socket: Used to determine connections to a server/service
+shutil (copyfile): Used to copy files where ever they are needed. Used specifically for the scoreboard backups
 
 """
 import urllib.request
@@ -30,6 +31,7 @@ import imp
 from datetime import datetime
 from threading import Timer
 import socket
+from shutil import copyfile
 
 
 # Colors for terminal output. Makes things pretty.
@@ -93,21 +95,22 @@ portsToCheck = ""
 '''
 loadConfig():
     Loads and parses the propane_config file.
-    Loads the globals "configFile, serversToCheck, whiteListInit, blackListInit, sleepTime, outfile, outdir, startTime, endTime, whiteListIsOn, blackListIsOn, enablePropAcc, showTargetIP, enableCustomPorts, portsToCheck" 
+    Loads the globals "configFile, serversToCheck, whiteListInit, blackListInit, sleepTime, outfile, outdir, startTime, endTime, whiteListIsOn, blackListIsOn, enablePropAcc, showTargetIP, enableCustomPorts, portsToCheck, enableBackUp" 
     from the config file to use later on.
 '''
 
 
 def loadConfig():
         print(bcolors.CYAN + bcolors.BOLD + "Loading Configurations" + bcolors.ENDC)
-        global configFile, serversToCheck, whiteListInit, blackListInit, sleepTime, outfile, outdir, startTime, endTime, whiteListIsOn, blackListIsOn, enablePropAcc, showTargetIP, enableCustomPorts, portsToCheck
+        global configFile, serversToCheck, whiteListInit, blackListInit, sleepTime, outfile, outdir, startTime, endTime, whiteListIsOn, blackListIsOn, enablePropAcc, showTargetIP, enableCustomPorts, portsToCheck, enableBackUp
         configFile = config.read("propane_config.ini")
         serversToCheck = config.items("Targets")
         whiteListInit = config.items("WhiteList")
         blackListInit = config.items("BlackList")
-        sleepTime = config.getint("General", "sleepTime")
+        sleepTime = config.getint("General", "sleeptime")
         outfile = config.get("General", "outfile")
         outdir = config.get("General", "outdir")
+        enableBackUp = config.getboolean("General", "enableBackUp")
         startTime = config.get("General", "starttime")
         endTime = config.get("General", "endtime")
         whiteListIsOn = config.getboolean("General", "whiteListOn")
@@ -148,6 +151,19 @@ def initPropAcc(propacc):
 
 
 '''
+createBackUp():
+    Initializes a timestamp for the file name at the current time of backing up. Then creates a folder called "Scoreboard_Backups"
+    if it does not exists already. Once the folder is made it copies the propane_scores.txt file to the backup folder with a name that is the current 
+    timestamp down to the second.
+'''
+
+def createBackUp():
+    currentTime = datetime.now()
+    print(bcolors.CYAN + bcolors.BOLD + "Backing up scoreboard @ " + currentTime.strftime('%m-%d-%Y-%H-%M-%S') + bcolors.ENDC)
+    os.makedirs("Scoreboard_Backups", exist_ok=True)
+    copyfile("propane_scores.txt", "Scoreboard_Backups/" + currentTime.strftime('%m-%d-%Y-%H-%M-%S'))
+
+'''
 score():
     Loads and parses the propane_scores file.
     Iterates through the servers testing for a connection.
@@ -158,6 +174,7 @@ score():
     If no one owns the box scanned, then no points are awarded.
     If black list feature is on, then users in the black list are flagged in the output and no score is awarded.
     If white list is feature is on, then users not in the white list are flagged in the output and no score is awarded.
+    If the back up feature is on, then the scoreboard will make a backup of itself at each scoring interval
 '''
 
 def score(whiteList, blackList):
@@ -252,6 +269,9 @@ def score(whiteList, blackList):
                 print(bcolors.BOLD + "Server " + bcolors.RED + server[0] + bcolors.ENDC + " is not officially " + bcolors.RED + "pwned " + bcolors.ENDC + "yet")
         with open("propane_scores.txt", 'w') as scoresFile:
                 scores.write(scoresFile)
+        # If backups are are on, make a back up!
+        if enableBackUp:
+            createBackUp()
 
 '''
 initScoreFile():
