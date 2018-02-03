@@ -33,8 +33,8 @@ Special thanks to [clamsec](https://github.com/ClamSec) and [myntal](https://git
 
 ### Scoreboard
 
-<img src="https://raw.githubusercontent.com/InjectionSoftwareDevelopment/Propane/master/scoreboard.png">
+<img src="https://raw.githubusercontent.com/InjectionSoftwareDevelopment/Propane/master/scoreboard_screenshot.png">
 
 ### Rules
 
-<img src="https://raw.githubusercontent.com/InjectionSoftwareDevelopment/Propane/master/rules.png">
+<img src="https://raw.githubusercontent.com/InjectionSoftwareDevelopment/Propane/master/rules_screenshot.png">
