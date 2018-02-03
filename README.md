@@ -9,16 +9,18 @@
 
 An Open Source KoTH Platform based on [NetKotH](https://github.com/NetKotH/netkoth-python)
 
+## Live Scoreboard:
+[https://propane.injecti0n.org/](https://propane.injecti0n.org/)
 
-# Documentation:
+## Documentation:
 [Propane Documentation](https://github.com/InjectionSoftwareDevelopment/Propane/blob/master/doc/markdown/)
 
 
 
-# How to use Propane:
+## How to use Propane:
 [Propane Setup Guide](https://github.com/InjectionSoftwareDevelopment/Propane/blob/master/doc/markdown/propane_setup.md)
 
-# Current Features:
+## Current Features:
 1. Propane Accessories! (Plugins)
 2. White/Black Lists
 3. Timed Events
