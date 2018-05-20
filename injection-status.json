@@ -1,0 +1,10 @@
+{
+    "name": "Propane",
+    "version": "1.1",
+    "platform": "nix",
+    "progress": "100%",
+    "state": "done",
+    "released": true,
+    "release_version": "1.1",
+    "download_url": "https://github.com/InjectionSoftwareDevelopment/Propane"
+}
