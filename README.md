@@ -29,6 +29,12 @@ An Open Source KoTH Platform based on [NetKotH](https://github.com/NetKotH/netko
 2. Target IP Scoreboard Toggle
 3. Scoreboard backups
 
+## TODO:
+1. Improve logging functionality to help be more "service" friendly
+2. Add optional systemd service configuration to make service management easier (no more need for screen or tmux!)
+3. Contribute a bare bones officially supported vagrant and docker image to make setup a breeze
+4. ?Potential frontend and templating rewrite maybe?
+
 Special thanks to [clamsec](https://github.com/ClamSec) and [myntal](https://github.com/Myntal) for their contributions!
 
 ## Screenshots:
