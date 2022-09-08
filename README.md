@@ -5,12 +5,9 @@
 </p>
 
 
-## VERSION 1.1
+## Version 1.1
 
-An Open Source KoTH Platform based on [NetKotH](https://github.com/NetKotH/netkoth-python)
-
-## Live Scoreboard:
-[https://propane.injecti0n.org/](https://propane.injecti0n.org/)
+An Open Source KoTH Platform based on [NetKotH](https://github.com/NetKotH/netkoth-python).
 
 ## Documentation:
 [Propane Documentation](https://github.com/InjectionSoftwareDevelopment/Propane/blob/master/doc/markdown/)
@@ -21,13 +18,13 @@ An Open Source KoTH Platform based on [NetKotH](https://github.com/NetKotH/netko
 [Propane Setup Guide](https://github.com/InjectionSoftwareDevelopment/Propane/blob/master/doc/markdown/propane_setup.md)
 
 ## Current Features:
-1. Propane Accessories! (Plugins)
-2. White/Black Lists
-3. Timed Events
+1. Propane accessories! Plugins!
+2. Allowlists and blocklists
+3. Timed events
 4. Templates
-1. Improved Server Status Checks/Scoreboard Server Status
-2. Target IP Scoreboard Toggle
-3. Scoreboard backups
+5. Improved server status checks and scoreboard server status
+6. Target IP scoreboard toggle
+7. Scoreboard backups
 
 ## TODO:
 1. Improve logging functionality to help be more "service" friendly
@@ -35,7 +32,7 @@ An Open Source KoTH Platform based on [NetKotH](https://github.com/NetKotH/netko
 3. Contribute a bare bones officially supported vagrant and docker image to make setup a breeze
 4. ?Potential frontend and templating rewrite maybe?
 
-Special thanks to [clamsec](https://github.com/ClamSec) and [myntal](https://github.com/Myntal) for their contributions!
+Special thanks to [clamSECURITY](https://github.com/clamsecurity) and [myntal](https://github.com/Myntal) for their contributions!
 
 ## Screenshots:
 
