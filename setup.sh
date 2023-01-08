@@ -45,10 +45,41 @@ echo ".......................................+=.................................
 echo " "
 echo "Propane Installation!"
 echo " "
-echo "Please enter the parent directory of the index to your webserver"
+echo "Please enter the parent directory of the index to your webserver (WARNING THIS WILL OVERWRITE YOU PROPANE_CONFIG.INI)"
 read -p "(This is usually going to be \"/var\" or \"/var/www\"): " install_dir
 echo "Installing Propane to: " $install_dir
 echo "<================================================>"
+config_file=$(cat << EOF
+[General]
+outfile = $install_dir/index.html
+outdir = $install_dir/
+sleeptime = 60
+whiteListOn = false
+blackListOn = false
+enablePropAcc = false
+showTargetIP = true
+enableCustomPorts = false
+enableBackUp = false
+starttime = 
+endtime =
+
+[Targets]
+linux = 192.168.2.51
+windoos =  192.168.2.52
+ms3 =  192.168.2.50
+webserver =  192.168.2.60
+
+[PortConfig]
+linux = 1337
+
+[WhiteList]
+users = nate,myntal,clamsec
+
+[BlackList]
+users = 3ndG4me
+EOF
+)
+echo $config_file > Propane/propane_config.ini
 cp -r Propane/* $install_dir
 program_dir="$install_dir/propane.py"
 chmod +x  $program_dir

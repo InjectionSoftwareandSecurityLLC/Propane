@@ -20,13 +20,104 @@ outdir = changeme/
 sleeptime = 60
 whiteListOn = false
 blackListOn = false
-enablePropAcc = false
+enablePropAcc = false# Propane
+
+<p align="center">
+<img src="https://raw.githubusercontent.com/InjectionSoftwareDevelopment/Propane/master/propane-logo.png" width=450px height=350px/>
+</p>
+
+
+## VERSION 1.1
+
+An Open Source KoTH Platform based on [NetKotH](https://github.com/NetKotH/netkoth-python)
+
+## Live Scoreboard:
+[https://propane.injecti0n.org/](https://propane.injecti0n.org/)
+
+## Documentation:
+[Propane Documentation](https://github.com/InjectionSoftwareDevelopment/Propane/blob/master/doc/markdown/)
+
+
+
+## How to use Propane:
+[Propane Setup Guide](https://github.com/InjectionSoftwareDevelopment/Propane/blob/master/doc/markdown/propane_setup.md)
+
+## Current Features:
+1. Propane Accessories! (Plugins)
+2. White/Black Lists
+3. Timed Events
+4. Templates
+1. Improved Server Status Checks/Scoreboard Server Status
+2. Target IP Scoreboard Toggle
+3. Scoreboard backups
+
+## TODO:
+1. Improve logging functionality to help be more "service" friendly
+2. Contribute a bare bones officially supported docker image to make setup a breeze
+3. ?Potential frontend and templating rewrite maybe?
+
+Special thanks to [clamsec](https://github.com/ClamSec) and [myntal](https://github.com/Myntal) for their contributions!
+
+## Screenshots:
+
+### Scoreboard
+
+<img src="https://raw.githubusercontent.com/InjectionSoftwareDevelopment/Propane/master/scoreboard_screenshot.png">
+
+### Rules
+
+<img src="https://raw.githubusercontent.com/InjectionSoftwareDevelopment/Propane/master/rules_screenshot.png">
+
 showTargetIP = true
 enableCustomPorts = false
 enableBackUp = false
-starttime = 
-endtime =
-```
+starttime = # Propane
+
+<p align="center">
+<img src="https://raw.githubusercontent.com/InjectionSoftwareDevelopment/Propane/master/propane-logo.png" width=450px height=350px/>
+</p>
+
+
+## VERSION 1.1
+
+An Open Source KoTH Platform based on [NetKotH](https://github.com/NetKotH/netkoth-python)
+
+## Live Scoreboard:
+[https://propane.injecti0n.org/](https://propane.injecti0n.org/)
+
+## Documentation:
+[Propane Documentation](https://github.com/InjectionSoftwareDevelopment/Propane/blob/master/doc/markdown/)
+
+
+
+## How to use Propane:
+[Propane Setup Guide](https://github.com/InjectionSoftwareDevelopment/Propane/blob/master/doc/markdown/propane_setup.md)
+
+## Current Features:
+1. Propane Accessories! (Plugins)
+2. White/Black Lists
+3. Timed Events
+4. Templates
+1. Improved Server Status Checks/Scoreboard Server Status
+2. Target IP Scoreboard Toggle
+3. Scoreboard backups
+
+## TODO:
+1. Improve logging functionality to help be more "service" friendly
+2. Contribute a bare bones officially supported docker image to make setup a breeze
+3. ?Potential frontend and templating rewrite maybe?
+
+Special thanks to [clamsec](https://github.com/ClamSec) and [myntal](https://github.com/Myntal) for their contributions!
+
+## Screenshots:
+
+### Scoreboard
+
+<img src="https://raw.githubusercontent.com/InjectionSoftwareDevelopment/Propane/master/scoreboard_screenshot.png">
+
+### Rules
+
+<img src="https://raw.githubusercontent.com/InjectionSoftwareDevelopment/Propane/master/rules_screenshot.png">
 
 Below is a description of each of these settings:
 

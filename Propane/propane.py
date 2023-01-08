@@ -7,31 +7,28 @@ urllib: Used for scanning and reading HTML pages from TARGET Servers
 re: Regex library used for searching for data in a particular format. Namely searching HTML pages for <team> tags
 configparser Parser library used for parsing scores and configuration data.
 time: Time used for delaying score updates at a set interval.
-distutils.dir_util (copy_tree): Used to load templates. Automatically creates and copies a
-                                directory set in the propane_config file
 os: Currently only used for removing uneeded template files generated on initialization.
     Used to make general OS calls as needed.
 csv: used for parsing comma delimited lists for the White and Black Lists.
-imp: used for importing plugins (Propane Accessories)
-datetime: used for scheduling games using a start/end time
+imp: used for importing plugins (Propane Accessories).
+datetime: used for scheduling games using a start/end time.
 thread (Timer): The Timer is used to spawn a thread that will end the game 
                 once deltaTime value generated from the endtime in the config reaches 0.
-socket: Used to determine connections to a server/service
-shutil (copyfile): Used to copy files where ever they are needed. Used specifically for the scoreboard backups
+socket: Used to determine connections to a server/service.
+shutil (copyfile, copytree): Used to copy files where ever they are needed. Used specifically for the scoreboard backups, template loading, and copying relevant configs.
 
 """
 import urllib.request
 import re
 import configparser
 import time
-from distutils.dir_util import copy_tree
 import os
 import csv
 import imp
 from datetime import datetime
 from threading import Timer
 import socket
-from shutil import copyfile
+from shutil import copyfile, copytree
 
 
 # Colors for terminal output. Makes things pretty.
@@ -255,7 +252,7 @@ def score(whiteList, blackList):
                         for port in portsToCheck:
                             if(port[0] == server[0]):
                                 sock.connect((server[1], port[1]))
-                                break
+                                breakserversToCheck
                             else:
                                 print(server[0] + " good")
                                 break
@@ -509,7 +506,7 @@ def main():
                 # Do one-time set up stuff on start of the game
                 if(gameSetup):
                         print(bcolors.CYAN + bcolors.BOLD + "Game Setup: " + bcolors.ENDC + " copying template files")
-                        copy_tree("template", outdir)
+                        copytree("template", outdir)
                         os.remove(outdir + "template.html")
 
                         if startTime:
@@ -545,12 +542,23 @@ def main():
                         propacc.start()
 
                 # Update Server Scores on Scoreboard
-               
+
+                # Grab all hosts after their status checks and create a list of those hosts.
+                allHosts = []
                 for server in serversToCheck:
                     thisTable = reloadScoreBoard(server)
-                    serverLabelTag=("<" + server[0] + ">").upper()
-                    print(bcolors.GREEN + bcolors.BOLD + "Updating " + bcolors.ENDC + bcolors.BOLD + serverLabelTag + bcolors.ENDC + " tag in the template")
-                    scorePage = scorePage.replace(serverLabelTag,thisTable)
+                    # Append host to list of host and wrap it in a div container that will manage the layout
+                    print(bcolors.GREEN + bcolors.BOLD + "Updating " + bcolors.ENDC + bcolors.BOLD + server[0] + bcolors.ENDC + " tag in the template")
+                    allHosts.append("<div class='col-md-3 col-xs-6'>" + thisTable + "</div>")
+                # Defined a string that will append all the dynamically generated target HTML data and convert it to a string as it iterates each host.
+                hostTemplateString = ""
+                for host in allHosts:
+                    hostTemplateString += host
+                # Grab the <SERVERS> tag to replace in the template.
+                serverLabelTag="<SERVERS>"
+                print(bcolors.GREEN + bcolors.BOLD + "Updating " + bcolors.ENDC + bcolors.BOLD + serverLabelTag + bcolors.ENDC + " tag in the template")
+                # Replace <SERVERS> with the generated targets string.
+                scorePage = scorePage.replace(serverLabelTag,hostTemplateString)
                 # Update Total Scores on Scoreboard
                 thisTable = reloadScoreBoard(["Total",""])
                 serverLabelTag=("<TOTAL>").upper()

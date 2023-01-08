@@ -90,7 +90,6 @@ After typing in your desired install directory, Propane will automatically insta
     windoos =  192.168.2.52
     ```
 6. Add in the proper **TARGETS** to the config file. See [Propane Config](https://github.com/InjectionSoftwareDevelopment/Propane/blob/master/doc/markdown/propane_config.md) docs for more info.
-7. Add in the **`<TARGET>` tags** to the `template.html` in your `templates/` directory. See [Propane Templates](https://github.com/InjectionSoftwareDevelopment/Propane/blob/master/doc/markdown/propane_templates.md) for how to edit templates.
 7. Start Propane!
     - `chmod +x propane.py`
     - `./propane.py`
