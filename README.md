@@ -5,7 +5,7 @@
 </p>
 
 
-## VERSION 1.1
+## VERSION 1.2
 
 An Open Source KoTH Platform based on [NetKotH](https://github.com/NetKotH/netkoth-python)
 
@@ -31,9 +31,8 @@ An Open Source KoTH Platform based on [NetKotH](https://github.com/NetKotH/netko
 
 ## TODO:
 1. Improve logging functionality to help be more "service" friendly
-2. Add optional systemd service configuration to make service management easier (no more need for screen or tmux!)
-3. Contribute a bare bones officially supported vagrant and docker image to make setup a breeze
-4. ?Potential frontend and templating rewrite maybe?
+2. Contribute a bare bones officially supported docker image to make setup a breeze
+3. ?Potential frontend and templating rewrite maybe?
 
 Special thanks to [clamsec](https://github.com/ClamSec) and [myntal](https://github.com/Myntal) for their contributions!
 
