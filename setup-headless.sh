@@ -45,8 +45,7 @@ echo ".......................................+=.................................
 echo " "
 echo "Propane Installation!"
 echo " "
-echo "Please enter the parent directory of the index to your webserver"
-read -p "(This is usually going to be \"/var/\" or \"/var/www/\" or \"/var/www/html/\"): " install_dir
+install_dir=$1
 echo "Installing Propane to: " $install_dir
 echo "<================================================>"
 echo "Restoring backup if it exists..."
