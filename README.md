@@ -23,13 +23,12 @@ An Open Source KoTH Platform based on [NetKotH](https://github.com/NetKotH/netko
 ### Docker:
 
 #### Build from docker repo:
-1. TODO but it'll be push button ;)
+1. `docker run -v $PWD/tmp:/tmp -p <YOURWEBPORT>:80 3ndG4me/propane`
 
 #### Manual build
 From the root of the repo run:
 1. `docker build -t propane .`
-2. `mkdir $PWD/tmp`
-2. `docker run -v $PWD/tmp:/tmp -p 8080:80 propane`
+2. `docker run -v $PWD/tmp:/tmp -p <YOURWEBPORT>:80 propane`
 
 To modify the default config, create a new one and place it in `$PWD/tmp`, propane will automatically copy it over on next update.
 
