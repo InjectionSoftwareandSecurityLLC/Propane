@@ -30,7 +30,7 @@ From the root of the repo run:
 1. `docker build -t propane .`
 2. `docker run -v $PWD/tmp:/tmp -p <YOURWEBPORT>:80 propane`
 
-To modify the default config, create a new one and place it in `$PWD/tmp`, propane will automatically copy it over on next update.
+To modify the default config, create a new `propane_config.ini` with your desired changes and place it in `$PWD/tmp`, propane will automatically copy it over on next update.
 
 
 ## Current Features:
