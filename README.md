@@ -20,6 +20,20 @@ An Open Source KoTH Platform based on [NetKotH](https://github.com/NetKotH/netko
 ## How to use Propane:
 [Propane Setup Guide](https://github.com/InjectionSoftwareDevelopment/Propane/blob/master/doc/markdown/propane_setup.md)
 
+### Docker:
+
+#### Build from docker repo:
+1. TODO but it'll be push button ;)
+
+#### Manual build
+From the root of the repo run:
+1. `docker build -t propane .`
+2. `mkdir $PWD/tmp`
+2. `docker run -v $PWD/tmp:/tmp -p 8080:80 propane`
+
+To modify the default config, create a new one and place it in `$PWD/tmp`, propane will automatically copy it over on next update.
+
+
 ## Current Features:
 1. Propane Accessories! (Plugins)
 2. White/Black Lists
@@ -28,10 +42,10 @@ An Open Source KoTH Platform based on [NetKotH](https://github.com/NetKotH/netko
 1. Improved Server Status Checks/Scoreboard Server Status
 2. Target IP Scoreboard Toggle
 3. Scoreboard backups
+4. New docker container!
 
 ## TODO:
 1. Improve logging functionality to help be more "service" friendly
-2. Contribute a bare bones officially supported docker image to make setup a breeze
 3. ?Potential frontend and templating rewrite maybe?
 
 Special thanks to [clamsec](https://github.com/ClamSec) and [myntal](https://github.com/Myntal) for their contributions!
