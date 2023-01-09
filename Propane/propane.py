@@ -76,7 +76,7 @@ portsToCheck: Initializes the global where the parsed data about specific Ports 
 config = configparser.RawConfigParser()
 scores = configparser.RawConfigParser()
 configFile = ""
-serversToCheck = ""
+serversToCheck = []
 whiteListInit = ""
 blackListInit = ""
 sleepTime = ""
@@ -98,8 +98,25 @@ loadConfig():
 
 
 def loadConfig():
+
+
+        # Little hacky workaround for docker config sharing, don't touch if not running in docker. The official docker container handles this for you!
+        isDocker = False
+
+        if isDocker:
+            if os.path.exists("/tmp/propane_config.ini"):
+                print(bcolors.CYAN + bcolors.BOLD + "Copying config for docker from /tmp..." + bcolors.ENDC)
+                copyfile("/tmp/propane_config.ini", "/var/www/propane_config.ini")
+            else:
+                print(bcolors.CYAN + bcolors.BOLD + "No config file exists yet in /tmp for docker, skipping..." + bcolors.ENDC)
+
         print(bcolors.CYAN + bcolors.BOLD + "Loading Configurations" + bcolors.ENDC)
+        
         global configFile, serversToCheck, whiteListInit, blackListInit, sleepTime, outfile, outdir, startTime, endTime, whiteListIsOn, blackListIsOn, enablePropAcc, showTargetIP, enableCustomPorts, portsToCheck, enableBackUp
+        
+        # Clear the config before we reload it so we don't get list memory conflict hell
+        config.clear()
+
         configFile = config.read("propane_config.ini")
         serversToCheck = config.items("Targets")
         whiteListInit = config.items("WhiteList")
@@ -117,15 +134,6 @@ def loadConfig():
         enableCustomPorts = config.getboolean("General", "enableCustomPorts")
         portsToCheck = config.items("PortConfig")
 
-        # Little hacky workaround for docker config sharing, don't touch if not running in docker. The official docker container handles this for you!
-        isDocker = False
-
-        if isDocker:
-            if os.path.exists("/tmp/propane_config.ini"):
-                print(bcolors.CYAN + bcolors.BOLD + "Copying config for docker from /tmp..." + bcolors.ENDC)
-                copyfile("/tmp/propane_config.ini", "/var/www/propane_config.ini")
-            else:
-                print(bcolors.CYAN + bcolors.BOLD + "No config file exists yet in /tmp for docker, skipping..." + bcolors.ENDC)
 
 
 
@@ -262,7 +270,7 @@ def score(whiteList, blackList):
                         for port in portsToCheck:
                             if(port[0] == server[0]):
                                 sock.connect((server[1], port[1]))
-                                breakserversToCheck
+                                break
                             else:
                                 print(server[0] + " good")
                                 break
@@ -289,7 +297,7 @@ initScoreFile():
 
 
 def initScoreFile():
-        scoresFile = scores.read("propane_scores.txt")
+        scores.read("propane_scores.txt")
         if not scores.has_section("TotalScores"):
                 scores.add_section("TotalScores")
 

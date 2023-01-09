@@ -1,5 +1,5 @@
 FROM ubuntu:latest
-RUN apt update -y && apt install python3 apache2 -y
+RUN apt update -y && apt install python3 apache2 iputils-ping -y
 WORKDIR Propane/
 COPY . .
 RUN bash setup.sh
