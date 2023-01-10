@@ -24,9 +24,9 @@ We reccommend using Apache to host the scoreboard on whatever machine you are us
 `chmod +x setup.sh`
 `./setup.sh`
 
-During the setup you will be prompted to type the **PARENT** directory of the directory where your index file is located. If you want to do a more custom set up and know what you are doing then type whatever path you want here, but depending on how apache is configured you will either want to type `/var/www/` or `/var/` here by default.
+By default the setup expects an apache2 server and installs to the parent directory of `/var/www/`. If you want to change this then modify the setup you to point to the **PARENT** directory of the directory where your index.html file will be served. If you want to do a more custom set up and know what you are doing then type whatever path you want here, but depending on how your web server is configured you will either want to type `/var/www/` or `/var/` here by default.
 
-If your apache server is configured to point at a directory called `html` then you will want to install Propane to `/var/www`. If it is configured to `www` then you may want to install it to `/var/`. The same logic can be applied to wherever you server is pointing too.
+If your apache server is configured to point at a directory called `html` then you will want to install Propane to `/var/www` (the default). If it is configured to `www` then you may want to install it to `/var/`. The same logic can be applied to wherever you server is pointing too.
 
 EX: If your index.html is stored in `/foo/bar/wham`. Then you'll want to install Propane to `/foo/bar`.
 
