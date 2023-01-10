@@ -9,8 +9,6 @@
 
 An Open Source KoTH Platform based on [NetKotH](https://github.com/NetKotH/netkoth-python)
 
-## Live Scoreboard:
-[https://propane.injecti0n.org/](https://propane.injecti0n.org/)
 
 ## Documentation:
 [Propane Documentation](https://github.com/InjectionSoftwareDevelopment/Propane/blob/master/doc/markdown/)
