@@ -45,7 +45,7 @@ To modify the default config, create a new `propane_config.ini` with your desire
 1. Improve logging functionality to help be more "service" friendly
 3. ?Potential frontend and templating rewrite maybe?
 
-Special thanks to [clamsec](https://github.com/ClamSec) and [myntal](https://github.com/Myntal) for their contributions!
+Special thanks to [clamSECURITY](https://github.com/clamsecurity) and [myntal](https://github.com/Myntal) for their contributions!
 
 ## Screenshots:
 
