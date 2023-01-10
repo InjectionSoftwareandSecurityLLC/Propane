@@ -7,31 +7,28 @@ urllib: Used for scanning and reading HTML pages from TARGET Servers
 re: Regex library used for searching for data in a particular format. Namely searching HTML pages for <team> tags
 configparser Parser library used for parsing scores and configuration data.
 time: Time used for delaying score updates at a set interval.
-distutils.dir_util (copy_tree): Used to load templates. Automatically creates and copies a
-                                directory set in the propane_config file
 os: Currently only used for removing uneeded template files generated on initialization.
     Used to make general OS calls as needed.
 csv: used for parsing comma delimited lists for the White and Black Lists.
-imp: used for importing plugins (Propane Accessories)
-datetime: used for scheduling games using a start/end time
+imp: used for importing plugins (Propane Accessories).
+datetime: used for scheduling games using a start/end time.
 thread (Timer): The Timer is used to spawn a thread that will end the game 
                 once deltaTime value generated from the endtime in the config reaches 0.
-socket: Used to determine connections to a server/service
-shutil (copyfile): Used to copy files where ever they are needed. Used specifically for the scoreboard backups
+socket: Used to determine connections to a server/service.
+shutil (copyfile, copytree): Used to copy files where ever they are needed. Used specifically for the scoreboard backups, template loading, and copying relevant configs.
 
 """
 import urllib.request
 import re
 import configparser
 import time
-from distutils.dir_util import copy_tree
 import os
 import csv
 import imp
 from datetime import datetime
 from threading import Timer
 import socket
-from shutil import copyfile
+from shutil import copyfile, copytree
 
 
 # Colors for terminal output. Makes things pretty.
@@ -79,7 +76,7 @@ portsToCheck: Initializes the global where the parsed data about specific Ports 
 config = configparser.RawConfigParser()
 scores = configparser.RawConfigParser()
 configFile = ""
-serversToCheck = ""
+serversToCheck = []
 whiteListInit = ""
 blackListInit = ""
 sleepTime = ""
@@ -101,8 +98,25 @@ loadConfig():
 
 
 def loadConfig():
+
+
+        # Little hacky workaround for docker config sharing, don't touch if not running in docker. The official docker container handles this for you!
+        isDocker = False
+
+        if isDocker:
+            if os.path.exists("/tmp/propane_config.ini"):
+                print(bcolors.CYAN + bcolors.BOLD + "Copying config for docker from /tmp..." + bcolors.ENDC)
+                copyfile("/tmp/propane_config.ini", "/var/www/propane_config.ini")
+            else:
+                print(bcolors.CYAN + bcolors.BOLD + "No config file exists yet in /tmp for docker, skipping..." + bcolors.ENDC)
+
         print(bcolors.CYAN + bcolors.BOLD + "Loading Configurations" + bcolors.ENDC)
+        
         global configFile, serversToCheck, whiteListInit, blackListInit, sleepTime, outfile, outdir, startTime, endTime, whiteListIsOn, blackListIsOn, enablePropAcc, showTargetIP, enableCustomPorts, portsToCheck, enableBackUp
+        
+        # Clear the config before we reload it so we don't get list memory conflict hell
+        config.clear()
+
         configFile = config.read("propane_config.ini")
         serversToCheck = config.items("Targets")
         whiteListInit = config.items("WhiteList")
@@ -119,6 +133,7 @@ def loadConfig():
         showTargetIP = config.getboolean("General", "showTargetIP")
         enableCustomPorts = config.getboolean("General", "enableCustomPorts")
         portsToCheck = config.items("PortConfig")
+
 
 
 
@@ -282,7 +297,7 @@ initScoreFile():
 
 
 def initScoreFile():
-        scoresFile = scores.read("propane_scores.txt")
+        scores.read("propane_scores.txt")
         if not scores.has_section("TotalScores"):
                 scores.add_section("TotalScores")
 
@@ -509,7 +524,7 @@ def main():
                 # Do one-time set up stuff on start of the game
                 if(gameSetup):
                         print(bcolors.CYAN + bcolors.BOLD + "Game Setup: " + bcolors.ENDC + " copying template files")
-                        copy_tree("template", outdir)
+                        copytree("template", outdir, dirs_exist_ok=True)
                         os.remove(outdir + "template.html")
 
                         if startTime:
@@ -545,12 +560,23 @@ def main():
                         propacc.start()
 
                 # Update Server Scores on Scoreboard
-               
+
+                # Grab all hosts after their status checks and create a list of those hosts.
+                allHosts = []
                 for server in serversToCheck:
                     thisTable = reloadScoreBoard(server)
-                    serverLabelTag=("<" + server[0] + ">").upper()
-                    print(bcolors.GREEN + bcolors.BOLD + "Updating " + bcolors.ENDC + bcolors.BOLD + serverLabelTag + bcolors.ENDC + " tag in the template")
-                    scorePage = scorePage.replace(serverLabelTag,thisTable)
+                    # Append host to list of host and wrap it in a div container that will manage the layout
+                    print(bcolors.GREEN + bcolors.BOLD + "Updating " + bcolors.ENDC + bcolors.BOLD + server[0] + bcolors.ENDC + " tag in the template")
+                    allHosts.append("<div class='col-md-3 col-xs-6'>" + thisTable + "</div>")
+                # Defined a string that will append all the dynamically generated target HTML data and convert it to a string as it iterates each host.
+                hostTemplateString = ""
+                for host in allHosts:
+                    hostTemplateString += host
+                # Grab the <SERVERS> tag to replace in the template.
+                serverLabelTag="<SERVERS>"
+                print(bcolors.GREEN + bcolors.BOLD + "Updating " + bcolors.ENDC + bcolors.BOLD + serverLabelTag + bcolors.ENDC + " tag in the template")
+                # Replace <SERVERS> with the generated targets string.
+                scorePage = scorePage.replace(serverLabelTag,hostTemplateString)
                 # Update Total Scores on Scoreboard
                 thisTable = reloadScoreBoard(["Total",""])
                 serverLabelTag=("<TOTAL>").upper()
@@ -568,4 +594,55 @@ def main():
 #Execute main()
 
 if __name__ == "__main__":
+    ascii_art = '''
+.......................................+=.......................................
+......................................+.+,......................................
+.....................................+...+......................................
+....................................+.....+.....................................
+...................................+.......+....................................
+..................................+.........=...................................
+.................................+:..........+..................................
+................................+=............+.................................
+...............................=+..............+................................
+...............................+................+...............................
+..............................+.................~+..............................
+.............................+...................++.............................
+............................+.....................=~............................
+...........................+.......................+,...........................
+..........................+......IIIIIIIIIIIIII.....+...........................
+.........................+......+.IIII.IIIII.I.......+..........................
+........................+.........I?I=.IIIII.I........+.........................
+.......................+,........IIIIIIIIIIIIII........+........................
+......................+~.........II..=IIII:..I=.........+.......................
+.....................=+.........IIIIIIIIIIIIIIII.........+......................
+....................,+.......IIIIIIIIIIIIIIIII????I.......+.....................
+....................+.......IIIIIIIIIIIIIII?????????......,+....................
+...................+.......IIIIIIIIIIIII????????????.......=+...................
+..................+........IIIIIIIIII???????????????........=+..................
+.................+.........IIIIIIIII????????????????.........+..................
+................+..........IIIII??????++????????????..........+.................
+...............+...........III???????++++????????+++...........+................
+..............+............I?????????+?++++???++++++............+...............
+.............+.............??????????+???+++++++++++.............+..............
+............+~.............??????????I??++++++++++++..............+.............
+...........=+..............????????????++?++++++++++...............+............
+..........~+...............????????+++++++++++++++++................+...........
+..........+................?????++++++++++++++++++++................,+..........
+.........=..................?+++++++++++++++++++++++.................:+.........
+........+....................+++++++++++++++++++=++...................++........
+.......+.......................++++++++++++++===.......................+~.......
+......+.........................++++++++++======........................+.......
+.....+.............................=+++++===.............................+......
+....+.....................................................................+.....
+...+.......................................................................+....
+..+~........................................................................=...
+.+=..........................................................................+..
++=............................................................................+.
+++++++++++++++++++++============================================================
+
+Propane KoTH - 3ndG4me, clamsec
+Version: 1.2
+    '''
+    print(bcolors.CYAN + bcolors.BOLD + ascii_art + bcolors.ENDC)
+
     main()

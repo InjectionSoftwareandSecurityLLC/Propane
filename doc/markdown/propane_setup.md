@@ -10,6 +10,19 @@ If not, that's what this documentation is for so don't sweat it!
 
 We reccommend using Apache to host the scoreboard on whatever machine you are using as the scoring server. This is just to keep things simple, however you can use whatever you want, and just replace Apache with your desired web server technology. The only real rule to follow is pointing Propane's outfile and outdir configurations to be able to write to the correct directory.
 
+## Docker:
+Build from docker repo:
+
+    docker run -v $PWD/tmp:/tmp -p <YOURWEBPORT>:80 3ndG4me/propane
+
+Manual build
+
+From the root of the repo run:
+
+    docker build -t propane .
+    docker run -v $PWD/tmp:/tmp -p <YOURWEBPORT>:80 propane
+
+To modify the default config, create a new propane_config.ini with your desired changes and place it in $PWD/tmp, propane will automatically copy it over on next update.
 
 ## Simple Install:
 
@@ -24,9 +37,9 @@ We reccommend using Apache to host the scoreboard on whatever machine you are us
 `chmod +x setup.sh`
 `./setup.sh`
 
-During the setup you will be prompted to type the **PARENT** directory of the directory where your index file is located. If you want to do a more custom set up and know what you are doing then type whatever path you want here, but depending on how apache is configured you will either want to type `/var/www/` or `/var/` here by default.
+By default the setup expects an apache2 server and installs to the parent directory of `/var/www/`. If you want to change this then modify the setup you to point to the **PARENT** directory of the directory where your index.html file will be served. If you want to do a more custom set up and know what you are doing then type whatever path you want here, but depending on how your web server is configured you will either want to type `/var/www/` or `/var/` here by default.
 
-If your apache server is configured to point at a directory called `html` then you will want to install Propane to `/var/www`. If it is configured to `www` then you may want to install it to `/var/`. The same logic can be applied to wherever you server is pointing too.
+If your apache server is configured to point at a directory called `html` then you will want to install Propane to `/var/www` (the default). If it is configured to `www` then you may want to install it to `/var/`. The same logic can be applied to wherever you server is pointing too.
 
 EX: If your index.html is stored in `/foo/bar/wham`. Then you'll want to install Propane to `/foo/bar`.
 
@@ -90,7 +103,6 @@ After typing in your desired install directory, Propane will automatically insta
     windoos =  192.168.2.52
     ```
 6. Add in the proper **TARGETS** to the config file. See [Propane Config](https://github.com/InjectionSoftwareDevelopment/Propane/blob/master/doc/markdown/propane_config.md) docs for more info.
-7. Add in the **`<TARGET>` tags** to the `template.html` in your `templates/` directory. See [Propane Templates](https://github.com/InjectionSoftwareDevelopment/Propane/blob/master/doc/markdown/propane_templates.md) for how to edit templates.
 7. Start Propane!
     - `chmod +x propane.py`
     - `./propane.py`

@@ -4,10 +4,9 @@
 <img src="https://raw.githubusercontent.com/InjectionSoftwareDevelopment/Propane/master/propane-logo.png" width=450px height=350px/>
 </p>
 
+## VERSION 1.2
 
-## Version 1.1
-
-An Open Source KoTH Platform based on [NetKotH](https://github.com/NetKotH/netkoth-python).
+An Open Source KoTH Platform based on [NetKotH](https://github.com/NetKotH/netkoth-python)
 
 ## Documentation:
 [Propane Documentation](https://github.com/InjectionSoftwareDevelopment/Propane/blob/master/doc/markdown/)
@@ -17,20 +16,32 @@ An Open Source KoTH Platform based on [NetKotH](https://github.com/NetKotH/netko
 ## How to use Propane:
 [Propane Setup Guide](https://github.com/InjectionSoftwareDevelopment/Propane/blob/master/doc/markdown/propane_setup.md)
 
+### Docker:
+
+#### Build from docker repo:
+1. `docker run -v $PWD/tmp:/tmp -p <YOURWEBPORT>:80 3ndG4me/propane`
+
+#### Manual build
+From the root of the repo run:
+1. `docker build -t propane .`
+2. `docker run -v $PWD/tmp:/tmp -p <YOURWEBPORT>:80 propane`
+
+To modify the default config, create a new `propane_config.ini` with your desired changes and place it in `$PWD/tmp`, propane will automatically copy it over on next update.
+
+
 ## Current Features:
 1. Propane accessories! Plugins!
 2. Allowlists and blocklists
 3. Timed events
 4. Templates
-5. Improved server status checks and scoreboard server status
-6. Target IP scoreboard toggle
-7. Scoreboard backups
+1. Improved Server Status Checks/Scoreboard Server Status
+2. Target IP Scoreboard Toggle
+3. Scoreboard backups
+4. New docker container!
 
 ## TODO:
 1. Improve logging functionality to help be more "service" friendly
-2. Add optional systemd service configuration to make service management easier (no more need for screen or tmux!)
-3. Contribute a bare bones officially supported vagrant and docker image to make setup a breeze
-4. ?Potential frontend and templating rewrite maybe?
+3. ?Potential frontend and templating rewrite maybe?
 
 Special thanks to [clamSECURITY](https://github.com/clamsecurity) and [myntal](https://github.com/Myntal) for their contributions!
 

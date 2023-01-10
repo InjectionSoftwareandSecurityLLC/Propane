@@ -45,14 +45,18 @@ echo ".......................................+=.................................
 echo " "
 echo "Propane Installation!"
 echo " "
-echo "Please enter the parent directory of the index to your webserver"
-read -p "(This is usually going to be \"/var\" or \"/var/www\"): " install_dir
-echo "Installing Propane to: " $install_dir
+echo "WARNING: This setup script only supports Apache2 installs with a webroot location of /var/www/html. Any other configurations will need to manually copy and edit the relevant server and configuration files."
+echo "Installing Propane to: /var/www"
 echo "<================================================>"
-cp -r Propane/* $install_dir
-program_dir="$install_dir/propane.py"
+echo "Restoring backup if it exists..."
+cp Propane/propane_config.ini.bak Propane/propane_config.ini
+echo "Making backup of propane_config.ini"
+cp Propane/propane_config.ini Propane/propane_config.ini.bak
+echo "Setting install dir in propane_config.ini"
+sed -i "s|changeme/|/var/www/html/|" Propane/propane_config.ini  
+echo "Moving propane files to specified webroot up one dir"
+cp -r Propane/* /var/www/.
+program_dir="/var/www/propane.py"
 chmod +x  $program_dir
 echo "Installation Complete..."
-echo "BE SURE TO MODIFY THE propane_config.ini TO USE THE INDEX FOLDER AS YOUR outdir VALUE!!!"
-echo "(i.e. /html OR /www)"
-echo "Run \"./propane.py\" from" \"$install_dir\" "to start the program."
+echo "Run \"./propane.py\" from" \"$program_dir\" "to start the program."
