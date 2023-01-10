@@ -640,7 +640,7 @@ if __name__ == "__main__":
 +=............................................................................+.
 ++++++++++++++++++++============================================================
 
-Propane KoTH - 3ndG4me, clamsec
+Propane KoTH - 3ndG4me, clamsecurity
 Version: 1.2
     '''
     print(bcolors.CYAN + bcolors.BOLD + ascii_art + bcolors.ENDC)
