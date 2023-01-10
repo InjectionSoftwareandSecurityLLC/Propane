@@ -10,6 +10,19 @@ If not, that's what this documentation is for so don't sweat it!
 
 We reccommend using Apache to host the scoreboard on whatever machine you are using as the scoring server. This is just to keep things simple, however you can use whatever you want, and just replace Apache with your desired web server technology. The only real rule to follow is pointing Propane's outfile and outdir configurations to be able to write to the correct directory.
 
+## Docker:
+Build from docker repo:
+
+    docker run -v $PWD/tmp:/tmp -p <YOURWEBPORT>:80 3ndG4me/propane
+
+Manual build
+
+From the root of the repo run:
+
+    docker build -t propane .
+    docker run -v $PWD/tmp:/tmp -p <YOURWEBPORT>:80 propane
+
+To modify the default config, create a new propane_config.ini with your desired changes and place it in $PWD/tmp, propane will automatically copy it over on next update.
 
 ## Simple Install:
 
