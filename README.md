@@ -21,7 +21,7 @@ An Open Source KoTH Platform based on [NetKotH](https://github.com/NetKotH/netko
 ### Docker:
 
 #### Build from docker repo:
-1. `docker run -v $PWD/tmp:/tmp -p <YOURWEBPORT>:80 3ndG4me/propane`
+1. `docker run -v $PWD/tmp:/tmp -p <YOURWEBPORT>:80 3ndg4me/propane`
 
 #### Manual build
 From the root of the repo run:
