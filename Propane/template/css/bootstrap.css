@@ -253,7 +253,7 @@ th {
   }
   .table td,
   .table th {
-    background-color: #fff !important;
+    background-color: #000 !important;
   }
   .table-bordered th,
   .table-bordered td {
@@ -1085,8 +1085,8 @@ body {
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: 14px;
   line-height: 1.42857143;
-  color: #333;
-  background-color: #fff;
+  color: #ff0000;
+  background-color: #000;
 }
 input,
 button,
@@ -4493,8 +4493,8 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
   }
 }
 .navbar-default {
-  background-color: #f8f8f8;
-  border-color: #e7e7e7;
+  background-color: #000000;
+  border-color: #070606;
 }
 .navbar-default .navbar-brand {
   color: #777;
@@ -4519,7 +4519,7 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
 .navbar-default .navbar-nav > .active > a:hover,
 .navbar-default .navbar-nav > .active > a:focus {
   color: #555;
-  background-color: #e7e7e7;
+  background-color: #000000;
 }
 .navbar-default .navbar-nav > .disabled > a,
 .navbar-default .navbar-nav > .disabled > a:hover,
@@ -4560,7 +4560,7 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
   .navbar-default .navbar-nav .open .dropdown-menu > .active > a:hover,
   .navbar-default .navbar-nav .open .dropdown-menu > .active > a:focus {
     color: #555;
-    background-color: #e7e7e7;
+    background-color: #000000;
   }
   .navbar-default .navbar-nav .open .dropdown-menu > .disabled > a,
   .navbar-default .navbar-nav .open .dropdown-menu > .disabled > a:hover,
